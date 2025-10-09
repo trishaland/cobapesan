@@ -515,145 +515,6 @@
   margin-top: 0 !important;
   padding-top: 40px !important; /* jarak di dalam footer */
 }
-
-/* === 🎵 PILIH LAGU SPOTIFY === */
-.spotify-section {
-  margin-top: 15px;
-  text-align: left;
-}
-
-.spotify-section label {
-  font-weight: 500;
-  color: #fff;
-  display: block;
-  margin-bottom: 5px;
-}
-
-.spotify-search {
-  display: flex;
-  gap: 10px;
-  align-items: center;
-}
-
-.spotify-search input {
-  flex: 1;
-  padding: 10px;
-  border-radius: 8px;
-  border: none;
-  outline: none;
-  font-size: 14px;
-}
-
-.spotify-search button {
-  background: #1db954;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  padding: 10px 15px;
-  cursor: pointer;
-  transition: 0.3s;
-}
-
-.spotify-search button:hover {
-  background: #18a14b;
-}
-
-#previewLagu iframe {
-  margin-top: 10px;
-  border-radius: 12px;
-}
-.pilih-lagu-container {
-  margin: 20px 0;
-  text-align: left;
-}
-
-.pilih-lagu-container label {
-  display: block;
-  margin-bottom: 5px;
-  color: #fff;
-  font-weight: 500;
-}
-
-#lagu {
-  width: 100%;
-  padding: 10px;
-  border-radius: 10px;
-  border: none;
-  outline: none;
-  background-color: rgba(255,255,255,0.15);
-  color: white;
-}
-
-.hasil-lagu {
-  margin-top: 10px;
-  display: grid;
-  gap: 10px;
-}
-
-.hasil-lagu div {
-  background-color: rgba(255,255,255,0.1);
-  padding: 10px;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: 0.2s;
-}
-
-.hasil-lagu div:hover {
-  background-color: rgba(255,255,255,0.25);
-}
-/* 🎧 Area pencarian lagu Spotify */
-.pilih-lagu-container {
-  margin: 15px auto;
-  width: 90%;
-  text-align: left;
-  color: #fff;
-}
-
-.pilih-lagu-container label {
-  display: block;
-  margin-bottom: 5px;
-  font-weight: 500;
-}
-
-#lagu {
-  width: 100%;
-  padding: 10px;
-  border-radius: 8px;
-  border: none;
-  outline: none;
-  background: #e6f0ff;
-  color: #333;
-  font-size: 1em;
-}
-
-.hasil-lagu {
-  background: white;
-  border-radius: 10px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-  max-height: 220px;
-  overflow-y: auto;
-  position: absolute;
-  width: 85%;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 20;
-  text-align: left;
-  display: none;
-  margin-top: 5px;
-}
-
-.hasil-lagu div {
-  padding: 8px 12px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  transition: background 0.2s;
-}
-
-.hasil-lagu div:hover {
-  background: #cfe6ff;
-}
   </style>
 
 <!-- ===== Trisha Chatbot Start ===== -->
@@ -889,14 +750,6 @@
   <form id="pesanForm">
     <input type="text" id="nama" name="nama" placeholder="Namamu" required>
     <textarea id="pesan" name="pesan" placeholder="Pesan untuk Trisha..." required></textarea>
-
-    <!-- 🎵 Pilihan lagu Spotify -->
-    <div class="pilih-lagu-container">
-      <label for="lagu">🎧 Pilih Lagu (opsional)</label>
-      <input type="text" id="lagu" name="lagu" placeholder="Cari lagu di Spotify...">
-      <div id="hasilLagu" class="hasil-lagu"></div>
-    </div>
-
     <button type="submit">Kirim 💖</button>
   </form>
 
@@ -1224,8 +1077,6 @@ const scriptURL = "https://script.google.com/macros/s/AKfycbzQoiHGwJa0wZ2rdDFGfg
 const form = document.getElementById("pesanForm");
 const status = document.getElementById("status");
 const daftarPesan = document.getElementById("daftarPesan");
-const hasilLagu = document.getElementById("hasilLagu");
-const inputLagu = document.getElementById("lagu");
 
 // 🚫 Daftar kata terlarang + singkatannya
 const kataTerlarang = [
@@ -1242,14 +1093,14 @@ const kataTerlarang = [
 function normalisasiTeks(teks) {
   return teks
     .toLowerCase()
-    .replace(/[@$!.,_]/g, "")
+    .replace(/[@$!.,_]/g, "") // hapus simbol umum
     .replace(/0/g, "o")
     .replace(/1/g, "i")
     .replace(/3/g, "e")
     .replace(/4/g, "a")
     .replace(/5/g, "s")
     .replace(/7/g, "t")
-    .replace(/\s+/g, " ")
+    .replace(/\s+/g, " ") // rapihin spasi
     .trim();
 }
 
@@ -1259,7 +1110,7 @@ form.addEventListener("submit", e => {
   const pesanAsli = form.pesan.value;
   const pesan = normalisasiTeks(pesanAsli);
 
-  // 🔎 Cek kata terlarang
+  // 🔎 Cek apakah pesan mengandung kata terlarang
   if (kataTerlarang.some(kata => pesan.includes(kata))) {
     status.textContent = "🚫 Pesanmu mengandung kata yang bisa menyakiti seseorang. Yuk kirim pesan yang positif 💖";
     status.style.color = "red";
@@ -1273,7 +1124,6 @@ form.addEventListener("submit", e => {
     .then(() => {
       status.textContent = "Pesan terkirim 💖";
       form.reset();
-      hasilLagu.innerHTML = ""; // hapus hasil pencarian lagu
       muatPesan();
     })
     .catch(err => {
@@ -1289,24 +1139,20 @@ function muatPesan() {
     .then(data => {
       daftarPesan.innerHTML = "";
 
+      // ✅ Jumlah pesan
       const countElem = document.getElementById("jumlahPesan");
       if (countElem) countElem.textContent = `(${data.length})`;
 
+      // 📝 Tampilkan pesan terbaru dulu
       data.reverse().forEach(item => {
         const div = document.createElement("div");
         div.classList.add("pesan");
 
+        // 🕒 Format tanggal
         const waktu = new Date(item.tanggal);
         const waktuTeks = !isNaN(waktu)
           ? waktu.toLocaleString("id-ID", { dateStyle: "short", timeStyle: "short" })
           : "-";
-
-        // 🎵 kalau ada lagu, embed Spotify
-        let laguHTML = "";
-        if (item.lagu && item.lagu.includes("spotify.com")) {
-          const embedURL = item.lagu.replace("open.spotify.com/track", "open.spotify.com/embed/track");
-          laguHTML = `<iframe src="${embedURL}" width="100%" height="80" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>`;
-        }
 
         div.innerHTML = `
           <div style="display:flex;justify-content:space-between;align-items:center;">
@@ -1314,7 +1160,6 @@ function muatPesan() {
             <small style="opacity:0.8;">${waktuTeks}</small>
           </div>
           <p>${item.pesan}</p>
-          ${laguHTML}
         `;
         daftarPesan.appendChild(div);
       });
@@ -1324,7 +1169,7 @@ function muatPesan() {
     .catch(err => console.error("Gagal memuat pesan:", err));
 }
 
-// 🔵 Indikator slide
+// 🔵 Indikator slide (maksimal 5)
 let indikatorContainer = document.querySelector(".indikator-slide");
 if (!indikatorContainer) {
   indikatorContainer = document.createElement("div");
@@ -1334,7 +1179,7 @@ if (!indikatorContainer) {
 
 function updateIndikator(totalPesan) {
   indikatorContainer.innerHTML = "";
-  const jumlahTitik = Math.min(5, totalPesan);
+  const jumlahTitik = Math.min(5, totalPesan); // maksimal 5 titik
 
   for (let i = 0; i < jumlahTitik; i++) {
     const dot = document.createElement("span");
@@ -1356,110 +1201,11 @@ function sinkronIndikator() {
   dots.forEach((dot, i) => dot.classList.toggle("aktif", i === proporsional));
 }
 
+// 🎯 Sinkronkan indikator saat digeser
 daftarPesan.addEventListener("scroll", sinkronIndikator);
 
-// 🎧 Search lagu di Spotify API
-let timer;
-inputLagu.addEventListener("input", async () => {
-  clearTimeout(timer);
-  const query = inputLagu.value.trim();
-  if (query.length < 3) {
-    hasilLagu.innerHTML = "";
-    return;
-  }
-
-  timer = setTimeout(async () => {
-    try {
-      const res = await fetch(`https://spotify23.p.rapidapi.com/search/?q=${encodeURIComponent(query)}&type=tracks&limit=5`, {
-        headers: {
-          "x-rapidapi-host": "spotify23.p.rapidapi.com",
-          "x-rapidapi-key": "6a12d9ff63084e1b91aac8056ef31eb1" // ganti dengan API key kamu
-        }
-      });
-      const data = await res.json();
-      const tracks = data.tracks?.items || [];
-      hasilLagu.innerHTML = "";
-
-      tracks.forEach(track => {
-        const id = track.data.id;
-        const title = track.data.name;
-        const artist = track.data.artists.items.map(a => a.profile.name).join(", ");
-        const img = track.data.albumOfTrack.coverArt.sources[0].url;
-
-        const div = document.createElement("div");
-        div.innerHTML = `
-          <img src="${img}" width="40" style="border-radius:6px;vertical-align:middle;margin-right:10px;">
-          <strong>${title}</strong><br><small>${artist}</small>
-        `;
-        div.addEventListener("click", () => {
-          const spotifyLink = `https://open.spotify.com/track/${id}`;
-          inputLagu.value = spotifyLink;
-          hasilLagu.innerHTML = "";
-        });
-        hasilLagu.appendChild(div);
-      });
-    } catch (err) {
-      console.error("Gagal cari lagu:", err);
-    }
-  }, 500);
-});
-
-// 🚀 Muat pesan di awal
+// 🚀 Langsung tampil saat halaman dibuka
 document.addEventListener("DOMContentLoaded", muatPesan);
-</script>
-
-<script>
-// 🎧 URL Web App Google Apps Script kamu
-const proxyURL = "https://script.google.com/macros/s/AKfycbzIZBpZs_JN_m48wA54747vjcHWs_7Ml2sVbC14LnP-HrO5SnFUSkg7NvRn3rAi5YI9QQ/exec"; // ganti dengan URL Apps Script kamu
-
-const inputLagu = document.getElementById("lagu");
-const hasilLagu = document.getElementById("hasilLagu");
-let timer;
-
-// 🔍 Cari lagu di Spotify via Apps Script proxy
-inputLagu.addEventListener("input", () => {
-  const query = inputLagu.value.trim();
-  clearTimeout(timer);
-  if (query.length < 2) {
-    hasilLagu.style.display = "none";
-    return;
-  }
-
-  timer = setTimeout(async () => {
-    try {
-      hasilLagu.innerHTML = "<p style='padding:10px;'>🔍 Mencari lagu...</p>";
-      hasilLagu.style.display = "block";
-
-      const res = await fetch(`${proxyURL}?q=${encodeURIComponent(query)}`);
-      const data = await res.json();
-      hasilLagu.innerHTML = "";
-
-      if (data.tracks && data.tracks.items.length > 0) {
-        data.tracks.items.forEach(track => {
-          const div = document.createElement("div");
-          div.classList.add("lagu-item");
-          div.innerHTML = `
-            <img src="${track.album.images[2]?.url || ''}" width="40" height="40" style="border-radius:6px;">
-            <div>
-              <strong>${track.name}</strong><br>
-              <small>${track.artists.map(a => a.name).join(", ")}</small>
-            </div>
-          `;
-          div.addEventListener("click", () => {
-            inputLagu.value = `${track.name} — ${track.artists[0].name}`;
-            hasilLagu.style.display = "none";
-          });
-          hasilLagu.appendChild(div);
-        });
-      } else {
-        hasilLagu.innerHTML = "<p style='padding:10px;'>😅 Tidak ditemukan.</p>";
-      }
-    } catch (err) {
-      console.error("Gagal mencari lagu:", err);
-      hasilLagu.innerHTML = "<p style='padding:10px;'>⚠️ Gagal memuat lagu.</p>";
-    }
-  }, 500);
-});
 </script>
 </body>
 </html>
