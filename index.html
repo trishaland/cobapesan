@@ -515,6 +515,21 @@
   margin-top: 0 !important;
   padding-top: 40px !important; /* jarak di dalam footer */
 }
+
+#daftarPesan {
+  display: flex;
+  gap: 20px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  padding: 30px 20px;
+  scroll-behavior: smooth;
+  justify-content: center;
+}
+
+.pesan {
+  flex: 0 0 calc(50% - 20px); /* 2 kartu per layar */
+  scroll-snap-align: center;
+}
   </style>
 
 <!-- ===== Trisha Chatbot Start ===== -->
@@ -744,8 +759,8 @@
   </section>
 
 <section id="kirimPesan" class="kirim-pesan-section">
-  <h2>💌 Kirim Pesan ke Trisha</h2>
-  <p>Tulis pesanmu di sini, nanti muncul langsung di halaman ini~</p>
+  <h2>💌 Tulis Pesan untuk Trisha</h2>
+  <p>Yuk, buat Trisha tersenyum dengan pesanmu! 🌤️</p>
 
   <form id="pesanForm">
     <input type="text" id="nama" name="nama" placeholder="Namamu" required>
@@ -755,7 +770,25 @@
 
   <div id="status"></div>
 
-  <h3>📬 Pesan dari Kalian <span id="jumlahPesan"></span></h3>
+  <h3>🌸 Dari Hati yang Sayang Trisha <span id="jumlahPesan"></span></h3>
+
+  <!-- 🔍 Pencarian nama pengirim -->
+  <div class="search-box" style="margin:10px 0 20px 0; text-align:center;">
+    <input 
+      type="text" 
+      id="searchPesan" 
+      placeholder="🔍 Cari nama pengirim" 
+      style="
+        padding:10px 15px;
+        border-radius:12px;
+        border:none;
+        outline:none;
+        width:100%;
+        max-width:320px;
+        box-shadow:0 2px 8px rgba(0,0,0,0.1);
+        font-size:15px;
+      ">
+  </div>
 
   <div id="pesanWrapper" class="pesan-wrapper">
     <div id="daftarPesan" class="daftar-pesan"></div>
@@ -1077,99 +1110,116 @@ const scriptURL = "https://script.google.com/macros/s/AKfycbzQoiHGwJa0wZ2rdDFGfg
 const form = document.getElementById("pesanForm");
 const status = document.getElementById("status");
 const daftarPesan = document.getElementById("daftarPesan");
+const searchInput = document.getElementById("searchPesan");
 
-// 🚫 Daftar kata terlarang + singkatannya
+// 🚫 Kata terlarang nasional + daerah + singkatan
 const kataTerlarang = [
-  "anjing","anjg","ajg","bangsat","bgsat","bgs","goblok","gblk","tolol","tll","bego","bgo",
-  "kontol","kntl","memek","mmk","pepek","ppk","ngentot","ngntt","tai","tae","babi","b4bi",
-  "setan","s3tan","brengsek","brngsk","kampret","kmprt","lonte","lnte","pelacur","placur",
-  "coli","cl","bokep","bkep","jancok","jnck","perek","prek","jelek","jlk","sumbang","smbng",
-  "gendut","gndt","jelek banget","gak bisa nyanyi","fals","f4ls","fales","f4les","norak","nrk",
-  "hina","h1na","menjijikkan","njijik","malu-maluin","mlmln","burik","brik","gagal","ggl",
-  "payah","pyh","kampungan","kmpngn","alay","al4y","jelek sih","fales banget"
+  // Umum / Indonesia
+  "anjing","anjg","ajg","anj","anjir","anjr","anjay","anjy","anjyng",
+  "bangsat","bgsat","bgs","goblok","gblk","tolol","tll","bego","bgo",
+  "kontol","kntl","memek","mmk","pepek","ppk","ngentot","ngntt","entot","ntot",
+  "tai","tae","babi","b4bi","setan","s3tan","brengsek","brngsk","kampret","kmpret","kmprt",
+  "lonte","lnte","pelacur","placur","coli","cl","bokep","bkep","perek","prek",
+  "jelek","jlk","burik","brik","alay","al4y","hina","h1na","norak","nrk","sial","sialan","siall","bangke","bngke",
+  "kampungan","kmpngn","sundal","sndl","gagal","ggl","bodoh","bdh","jijik","njijik","menjijikkan",
+  // Jawa kasar
+  "asu","asuu","asw","asoe","asuh","asux","jancuk","jancok","jancuq","jancux","jck","janc","ndasmu","ndsmu","ndas",
+  "kacuk","kacux","kacok","kacuq","kacukmu","pantek","pantik","pntek","pntik","panteq",
+  "mbacot","bacot","bacod","mbcd","congor","congorr","cangkem","cangkm","cngkm","cangkemu",
+  "sialan","sia","siaa","sialanmu","goblog","goblogmu","gblkmu","goblog pisan","gblk pisan",
+  // Sunda / daerah lain
+  "koplok","bloon","belegug","beleged","bego pisan","siah","siaaa","kehed","kehd","kehede","kehe",
+  "asu sia","anjing sia",
+  // Singkatan / plesetan kreatif
+  "pukimak","pkmk","kimak","kmk","cuk","cukimak","cukma","cok","jlk","tll","anjx","anjg","anjt",
+  "bgsd","bgsd","kntl","mmk","ppk","ngntt","ngntd","ngnt","asuq","asuw","anjc","bgsad","bgst","bngst","brngsk"
 ];
 
-// 🔠 Normalisasi teks biar singkatan & angka bisa ke-detect
+// 🔠 Normalisasi teks
 function normalisasiTeks(teks) {
   return teks
     .toLowerCase()
-    .replace(/[@$!.,_]/g, "") // hapus simbol umum
+    .replace(/[@$!.,_~*#^%]/g, "")
     .replace(/0/g, "o")
     .replace(/1/g, "i")
     .replace(/3/g, "e")
     .replace(/4/g, "a")
     .replace(/5/g, "s")
     .replace(/7/g, "t")
-    .replace(/\s+/g, " ") // rapihin spasi
+    .replace(/8/g, "b")
+    .replace(/\s+/g, " ")
     .trim();
 }
 
-// 📨 Kirim pesan
+// 📨 Kirim pesan (nama + pesan difilter)
 form.addEventListener("submit", e => {
   e.preventDefault();
+  const namaAsli = form.nama.value;
   const pesanAsli = form.pesan.value;
+
+  const nama = normalisasiTeks(namaAsli);
   const pesan = normalisasiTeks(pesanAsli);
 
-  // 🔎 Cek apakah pesan mengandung kata terlarang
-  if (kataTerlarang.some(kata => pesan.includes(kata))) {
-    status.textContent = "🚫 Pesanmu mengandung kata yang bisa menyakiti seseorang. Yuk kirim pesan yang positif 💖";
+  const adaKataKasarnya =
+    kataTerlarang.some(kata => pesan.includes(kata) || nama.includes(kata));
+
+  if (adaKataKasarnya) {
+    status.textContent =
+      "🚫 Pesanmu atau nama mengandung kata tidak pantas. Yuk kirim sesuatu yang positif 💖";
     status.style.color = "red";
     return;
   }
 
   status.textContent = "Mengirim...";
-  status.style.color = "";
-
   fetch(scriptURL, { method: "POST", body: new FormData(form) })
     .then(() => {
       status.textContent = "Pesan terkirim 💖";
       form.reset();
       muatPesan();
     })
-    .catch(err => {
-      status.textContent = "Gagal mengirim pesan 😢";
-      console.error(err);
-    });
+    .catch(() => (status.textContent = "Gagal mengirim pesan 😢"));
 });
 
 // 💬 Ambil & tampilkan pesan
+let semuaPesan = [];
+
 function muatPesan() {
-  fetch(scriptURL + "?action=read")
+  fetch(`${scriptURL}?action=read`)
     .then(res => res.json())
     .then(data => {
-      daftarPesan.innerHTML = "";
-
-      // ✅ Jumlah pesan
-      const countElem = document.getElementById("jumlahPesan");
-      if (countElem) countElem.textContent = `(${data.length})`;
-
-      // 📝 Tampilkan pesan terbaru dulu
-      data.reverse().forEach(item => {
-        const div = document.createElement("div");
-        div.classList.add("pesan");
-
-        // 🕒 Format tanggal
-        const waktu = new Date(item.tanggal);
-        const waktuTeks = !isNaN(waktu)
-          ? waktu.toLocaleString("id-ID", { dateStyle: "short", timeStyle: "short" })
-          : "-";
-
-        div.innerHTML = `
-          <div style="display:flex;justify-content:space-between;align-items:center;">
-            <strong>${item.nama}</strong>
-            <small style="opacity:0.8;">${waktuTeks}</small>
-          </div>
-          <p>${item.pesan}</p>
-        `;
-        daftarPesan.appendChild(div);
-      });
-
-      updateIndikator(data.length);
+      semuaPesan = data.reverse();
+      tampilkanPesan(semuaPesan);
+      setTimeout(mulaiLoopingPesan, 1500);
     })
     .catch(err => console.error("Gagal memuat pesan:", err));
 }
 
-// 🔵 Indikator slide (maksimal 5)
+// 🎯 Tampilkan pesan
+function tampilkanPesan(data) {
+  daftarPesan.innerHTML = "";
+  data.forEach(item => {
+    const div = document.createElement("div");
+    div.classList.add("pesan");
+
+    const waktu = new Date(item.tanggal);
+    const waktuTeks = !isNaN(waktu)
+      ? waktu.toLocaleString("id-ID", { dateStyle: "short", timeStyle: "short" })
+      : "-";
+
+    div.innerHTML = `
+      <div style="display:flex;justify-content:space-between;align-items:center;">
+        <strong>${item.nama}</strong>
+        <small style="opacity:0.8;">${waktuTeks}</small>
+      </div>
+      <p>${item.pesan}</p>
+    `;
+    daftarPesan.appendChild(div);
+  });
+
+  updateIndikator();
+}
+
+// 🔵 Indikator (1 titik = 2 kartu)
 let indikatorContainer = document.querySelector(".indikator-slide");
 if (!indikatorContainer) {
   indikatorContainer = document.createElement("div");
@@ -1177,11 +1227,11 @@ if (!indikatorContainer) {
   document.querySelector(".kirim-pesan-section").appendChild(indikatorContainer);
 }
 
-function updateIndikator(totalPesan) {
+function updateIndikator() {
   indikatorContainer.innerHTML = "";
-  const jumlahTitik = Math.min(5, totalPesan); // maksimal 5 titik
-
-  for (let i = 0; i < jumlahTitik; i++) {
+  const totalPesan = daftarPesan.children.length;
+  const jumlahDot = Math.ceil(totalPesan / 2);
+  for (let i = 0; i < jumlahDot; i++) {
     const dot = document.createElement("span");
     if (i === 0) dot.classList.add("aktif");
     indikatorContainer.appendChild(dot);
@@ -1190,21 +1240,47 @@ function updateIndikator(totalPesan) {
 
 function sinkronIndikator() {
   const dots = indikatorContainer.querySelectorAll("span");
-  const totalPesan = daftarPesan.children.length;
-  if (totalPesan === 0 || dots.length === 0) return;
-
-  const scrollLeft = daftarPesan.scrollLeft;
   const cardWidth = daftarPesan.children[0]?.offsetWidth + 20;
-  const aktifIndex = Math.round(scrollLeft / cardWidth);
-  const proporsional = Math.round((aktifIndex / (totalPesan - 1)) * (dots.length - 1));
-
-  dots.forEach((dot, i) => dot.classList.toggle("aktif", i === proporsional));
+  const aktifIndex = Math.round(daftarPesan.scrollLeft / (cardWidth * 2));
+  dots.forEach((dot, i) => dot.classList.toggle("aktif", i === aktifIndex));
 }
 
-// 🎯 Sinkronkan indikator saat digeser
 daftarPesan.addEventListener("scroll", sinkronIndikator);
 
-// 🚀 Langsung tampil saat halaman dibuka
+// 🌀 Auto-scroll
+function mulaiLoopingPesan() {
+  const container = daftarPesan;
+  if (!container || container.children.length === 0) return;
+
+  const clone = container.innerHTML;
+  container.innerHTML += clone;
+
+  let scrollX = 0;
+  const kecepatan = 1.5;
+  let paused = false;
+
+  function animasiGeser() {
+    if (!paused) {
+      scrollX += kecepatan;
+      if (scrollX >= container.scrollWidth / 2) scrollX = 0;
+      container.scrollLeft = scrollX;
+    }
+    requestAnimationFrame(animasiGeser);
+  }
+
+  container.addEventListener("mouseenter", () => paused = true);
+  container.addEventListener("mouseleave", () => paused = false);
+
+  let userScrollTimeout;
+  container.addEventListener("scroll", () => {
+    paused = true;
+    clearTimeout(userScrollTimeout);
+    userScrollTimeout = setTimeout(() => (paused = false), 2000);
+  });
+
+  requestAnimationFrame(animasiGeser);
+}
+
 document.addEventListener("DOMContentLoaded", muatPesan);
 </script>
 </body>
