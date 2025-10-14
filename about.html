@@ -740,30 +740,33 @@
   .activity-grid {
     flex-wrap: nowrap;
     justify-content: space-between;
-    overflow: hidden;
-    padding: 0 8px;
-    gap: 4px; /* dikurangin biar muat lebih kecil */
+    overflow: hidden; /* hilangkan geser horizontal */
+    padding: 0 6px;   /* sedikit padding biar gak nempel tepi */
+    gap: 4px;         /* lebih kecil biar muat pas */
   }
 
   .activity-card {
-    flex: 0 0 calc(25% - 4px); /* tetap 4 kolom tapi lebih sempit */
-    padding: 14px 4px;         /* lebih kecil lagi */
-    font-size: 0.7rem;         /* teks diperkecil */
-    border-radius: 10px;
+    flex: 0 0 calc(25% - 4px); /* 4 kolom pas di layar */
+    min-width: unset;
+    max-width: unset;
+    padding: 15px 4px;  /* kecilin padding biar proporsional */
+    font-size: 0.75rem; /* kecilin teks */
+    text-align: center;
+    border-radius: 12px; /* biar tetap smooth */
   }
 
   .activity-card i {
-    font-size: 1.1rem; /* ikon lebih kecil */
-    margin-bottom: 5px;
+    font-size: 1.2rem;
+    margin-bottom: 4px;
   }
 
   .trisha-activities h2 {
-    font-size: 1.5rem;
+    font-size: 1.4rem;
   }
 
   .trisha-activities .desc {
-    font-size: 0.85rem;
-    margin-bottom: 20px;
+    font-size: 0.7rem;
+    margin-bottom: 25px;
   }
 }
 
