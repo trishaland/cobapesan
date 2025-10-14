@@ -633,12 +633,12 @@
   }
 
   /* 🔽 Panah putih dibalik — sekarang lancipnya ke arah roda */
-/* 🎯 PANAH PUTIH — hanya satu, arah ke roda */
+/* 🎯 PANAH PUTIH — ARAH KE RODA */
 .arrow {
   position: absolute;
-  right: -14px; /* pas nempel di tepi roda */
+  right: -14px; /* lebih masuk sedikit biar nempel pas di roda */
   top: 50%;
-  transform: translateY(-50%) rotate(180deg); /* arahkan ke roda */
+  transform: translateY(-50%) rotate(180deg); /* dibalik arah ke roda */
   width: 0;
   height: 0;
   border-top: 14px solid transparent;
@@ -651,12 +651,11 @@
 /* 📱 Responsif di layar kecil */
 @media (max-width: 768px) {
   .arrow {
-    right: -10px; /* lebih dekat ke roda */
+    right: -10px; /* agak mendekat ke roda */
     border-top: 12px solid transparent;
     border-bottom: 12px solid transparent;
-    border-right: 18px solid #fff; /* tetap ke arah roda */
-    border-left: none !important;  /* ❌ pastikan panah lama dihapus total */
-    transform: translateY(-50%) rotate(180deg);
+    border-right: 18px solid #fff;
+    transform: translateY(-50%) rotate(180deg); /* tetap arah ke roda */
   }
 }
 
