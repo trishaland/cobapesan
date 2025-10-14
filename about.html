@@ -831,30 +831,38 @@
 /* 📱 RESPONSIF MOBILE */
 @media (max-width: 768px) {
   .activity-buttons {
-    justify-content: space-evenly;
-    gap: 14px;
+    justify-content: space-between; /* biar pas 4 sejajar */
+    gap: 6px;
     margin-top: 25px;
+    padding: 0 8px;
   }
 
   .activity-btn {
-    width: 72px;
-    height: 72px;
-    border-radius: 18px;
+    width: 68px;          /* kecilin dikit biar muat semua */
+    height: 68px;
+    border-radius: 16px;
+    flex-shrink: 0;
   }
 
   .activity-btn .emoji {
-    font-size: 2.9rem;
+    font-size: 2.6rem;    /* proporsional sama ukuran tombol */
     margin-bottom: 0;
   }
 
   .activity-btn .label {
-    display: none;
+    display: none;        /* tetap hilang di mobile */
   }
 
+  /* 🔵 Titik indikator aktif */
   .activity-btn.active::after {
     bottom: 4px;
     width: 7px;
     height: 7px;
+  }
+
+  /* ✨ Tambah jarak antara tombol & konten */
+  .activity-content {
+    margin-top: 35px;     /* beri spasi biar tidak nempel */
   }
 }
 </style>
