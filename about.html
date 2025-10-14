@@ -733,10 +733,10 @@
   font-size: 1.05rem;
 }
 
-.activity-card.blue { background: #5271ff; }
-.activity-card.green { background: #20c997; }
-.activity-card.orange { background: #ffb347; }
-.activity-card.purple { background: #b67bff; }
+.activity-card.blue { background: #66C3FF; }
+.activity-card.green { background: #7EE8B5; }
+.activity-card.orange { background: #FFD56B; }
+.activity-card.purple { background: #B084F6; }
 
 .activity-card:hover {
   transform: translateY(-5px);
@@ -835,16 +835,16 @@
 
 /* 🎨 Warna segitiga sesuai card */
 .activity-card.blue.active::after {
-  border-top: 25px solid #5271ff;
+  border-top: 25px solid #66C3FF;
 }
 .activity-card.green.active::after {
-  border-top: 25px solid #20c997;
+  border-top: 25px solid #7EE8B5;
 }
 .activity-card.orange.active::after {
-  border-top: 25px solid #ffb347;
+  border-top: 25px solid #FFD56B;
 }
 .activity-card.purple.active::after {
-  border-top: 25px solid #b67bff;
+  border-top: 25px solid #B084F6;
 }
 
 /* 📱 Mobile */
@@ -864,16 +864,85 @@
   }
 
   .activity-card.blue.active::after {
-    border-top: 20px solid #5271ff;
+    border-top: 20px solid #66C3FF;
   }
   .activity-card.green.active::after {
-    border-top: 20px solid #20c997;
+    border-top: 20px solid #7EE8B5;
   }
   .activity-card.orange.active::after {
-    border-top: 20px solid #ffb347;
+    border-top: 20px solid #FFD56B;
   }
   .activity-card.purple.active::after {
-    border-top: 20px solid #b67bff;
+    border-top: 20px solid #B084F6;
+  }
+}
+
+.activity-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 25px;
+  margin-top: 40px;
+}
+
+.activity-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 120px;
+  height: 120px;
+  border-radius: 22px;
+  border: none;
+  cursor: pointer;
+  color: white;
+  font-weight: 700;
+  font-family: "Poppins", sans-serif;
+  transition: all 0.25s ease;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* warna pastel cerah */
+.activity-btn.rekapshow { background-color: #66C3FF; }
+.activity-btn.timeline  { background-color: #FFD56B; }
+.activity-btn.hashtag   { background-color: #B084F6; }
+.activity-btn.pesan     { background-color: #FF85A1; }
+
+.activity-btn .emoji {
+  font-size: 2.4rem;
+  margin-bottom: 6px;
+  transition: transform 0.25s ease;
+}
+
+.activity-btn .label {
+  font-size: 1rem;
+  letter-spacing: 0.5px;
+}
+
+.activity-btn:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 18px rgba(0, 0, 0, 0.15);
+}
+
+.activity-btn:hover .emoji {
+  transform: scale(1.15);
+}
+
+/* 📱 mobile */
+@media (max-width: 768px) {
+  .activity-btn {
+    width: 70px;
+    height: 70px;
+    border-radius: 18px;
+  }
+
+  .activity-btn .label {
+    display: none;
+  }
+
+  .activity-btn .emoji {
+    font-size: 1.9rem;
+    margin-bottom: 0;
   }
 }
 </style>
@@ -1040,129 +1109,129 @@
     <h2><span>Trisha</span> Activities</h2>
     <p class="desc">Pilih salah satu aktivitas di bawah ini:</p>
 
+    <!-- 🌈 GANTI BAGIAN INI -->
     <div class="activity-grid">
-      <button class="activity-card blue active" data-target="rekap">
-        <i class="fa-solid fa-ticket"></i>
-        <h3>Rekap Show</h3>
-      </button>
-
-      <button class="activity-card green" data-target="timeline">
-        <i class="fa-solid fa-clock-rotate-left"></i>
-        <h3>Timeline</h3>
-      </button>
-
-      <button class="activity-card orange" data-target="hashtag">
-        <i class="fa-solid fa-hashtag"></i>
-        <h3>Hashtag</h3>
-      </button>
-
-      <button class="activity-card purple" data-target="pesan">
-        <i class="fa-solid fa-message"></i>
-        <h3>Pesan</h3>
-      </button>
+      <div class="activity-buttons">
+        <button class="activity-btn rekapshow active" data-target="rekap">
+          <span class="emoji">📊</span>
+          <span class="label">Rekap Show</span>
+        </button>
+        <button class="activity-btn timeline" data-target="timeline">
+          <span class="emoji">🕒</span>
+          <span class="label">Timeline</span>
+        </button>
+        <button class="activity-btn hashtag" data-target="hashtag">
+          <span class="emoji">#️⃣</span>
+          <span class="label">Hashtag</span>
+        </button>
+        <button class="activity-btn pesan" data-target="pesan">
+          <span class="emoji">💌</span>
+          <span class="label">Pesan</span>
+        </button>
+      </div>
     </div>
+    <!-- 🌈 SAMPAI SINI -->
 
     <div class="activity-content">
+      <!-- 📊 REKAP SHOW -->
       <div id="rekap" class="content-section active">
         <section class="flipcard-section">
-  <h2>Rekap Show Trisha</h2>
-  <div class="rekap-wrapper">
-    
-    <!-- BAGIAN KIRI -->
-<div class="rekap-info">
-  <div class="info-item">
-    <img src="icon-show.png" alt="Show Icon">
-    <span><span class="count" data-target="86">0</span> Show</span>
-  </div>
+          <h2>Rekap Show Trisha</h2>
+          <div class="rekap-wrapper">
+            
+            <!-- BAGIAN KIRI -->
+            <div class="rekap-info">
+              <div class="info-item">
+                <img src="icon-show.png" alt="Show Icon">
+                <span><span class="count" data-target="86">0</span> Show</span>
+              </div>
 
-  <div class="info-item">
-    <img src="icon-setlist.png" alt="Setlist Icon">
-    <span><span class="count" data-target="3">0</span> Setlist</span>
-  </div>
+              <div class="info-item">
+                <img src="icon-setlist.png" alt="Setlist Icon">
+                <span><span class="count" data-target="3">0</span> Setlist</span>
+              </div>
 
-  <div class="info-item">
-    <img src="icon-unit.png" alt="Unit Icon">
-    <span><span class="count" data-target="7">0</span> Unit Songs</span>
-  </div>
-</div>
+              <div class="info-item">
+                <img src="icon-unit.png" alt="Unit Icon">
+                <span><span class="count" data-target="7">0</span> Unit Songs</span>
+              </div>
+            </div>
 
+            <!-- BAGIAN KANAN (flip cards tetap seperti semula) -->
+            <div class="flipcard-container">
+              <div class="flip-card">
+                <div class="flip-card-inner">
+                  <div class="flip-card-front">
+                    <img src="pajama.png" alt="51 kali Pajama Drive">
+                    <div class="caption">51 kali<br>Pajama Drive</div>
+                  </div>
+                  <div class="flip-card-back">
+                    <div class="back-title">Pajama Drive</div>
+                    <strong>Shonichi:</strong> 30 Mei 2024<br>
+                    <strong>Global Center:</strong> 3 Mei 2025<br>
+                    <strong>Unit Song:</strong> Tenshi no Shippo<br><br>
+                  </div>
+                </div>
+              </div>
 
-<!-- BAGIAN KANAN (flip cards tetap seperti semula) -->
-<div class="flipcard-container">
+              <div class="flip-card">
+                <div class="flip-card-inner">
+                  <div class="flip-card-front">
+                    <img src="aitakatta.png" alt="33 kali Aitakatta">
+                    <div class="caption">33 kali<br>Aitakatta</div>
+                  </div>
+                  <div class="flip-card-back">
+                    <div class="back-title">Aitakatta</div>
+                    <strong>Shonichi:</strong> 16 Februari 2024<br>
+                    <strong>Global Center:</strong> 10 Mei 2025<br>
+                    <strong>Unit Songs:</strong> Koi No Plan, Revolusi Rio, Senaka Kara Dakishimete, Nageki no Figure, dan Nagisa no Cherry<br><br>
+                  </div>
+                </div>
+              </div>
 
-  <div class="flip-card">
-    <div class="flip-card-inner">
-      <div class="flip-card-front">
-        <img src="pajama.png" alt="51 kali Pajama Drive">
-        <div class="caption">51 kali<br>Pajama Drive</div>
+              <div class="flip-card">
+                <div class="flip-card-inner">
+                  <div class="flip-card-front">
+                    <img src="ramune.png" alt="2 kali Cara Meminum Ramune">
+                    <div class="caption">2 kali<br>Cara Meminum Ramune</div>
+                  </div>
+                  <div class="flip-card-back">
+                    <div class="back-title">Cara Meminum Ramune</div>
+                    <strong>Shonichi:</strong> 17 Juli 2025<br>
+                    <strong>Unit Song:</strong> Finland Miracle<br><br>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
       </div>
-      <div class="flip-card-back">
-        <div class="back-title">Pajama Drive</div>
-        <strong>Shonichi:</strong> 30 Mei 2024<br>
-        <strong>Global Center:</strong> 3 Mei 2025<br>
-        <strong>Unit Song:</strong> Tenshi no Shippo<br><br>
-      </div>
-    </div>
-  </div>
 
-  <div class="flip-card">
-    <div class="flip-card-inner">
-      <div class="flip-card-front">
-        <img src="aitakatta.png" alt="33 kali Aitakatta">
-        <div class="caption">33 kali<br>Aitakatta</div>
+      <!-- 🕒 TIMELINE -->
+      <div id="timeline" class="content-section">
+        <section class="timeline-trisha">
+          <h2>Timeline Trisha</h2>
+          <div class="timeline-wrapper">
+            <div class="wheel-wrapper">
+              <div class="arrow"></div>
+              <canvas id="wheelCanvas" width="500" height="500"></canvas>
+              <div class="wheel-center"></div>
+            </div>
+            <div class="event-info">
+              <h3 id="event-title">Debut Trainee</h3>
+              <p id="event-desc">Trisha tampil pertama kali sebagai trainee generasi 12 di JKT48 Academy! 💫</p>
+              <img id="event-img" src="debut.jpg" alt="Event Image" style="width:100%;border-radius:12px;margin-top:12px;">
+            </div>
+          </div>
+        </section>
       </div>
-      <div class="flip-card-back">
-        <div class="back-title">Aitakatta</div>
-        <strong>Shonichi:</strong> 16 Februari 2024<br>
-        <strong>Global Center:</strong> 10 Mei 2025<br>
-        <strong>Unit Songs:</strong> Koi No Plan, Revolusi Rio, Senaka Kara Dakishimete, Nageki no Figure, dan Nagisa no Cherry<br><br>
-      </div>
-    </div>
-  </div>
 
-  <div class="flip-card">
-    <div class="flip-card-inner">
-      <div class="flip-card-front">
-        <img src="ramune.png" alt="2 kali Cara Meminum Ramune">
-        <div class="caption">2 kali<br>Cara Meminum Ramune</div>
-      </div>
-      <div class="flip-card-back">
-        <div class="back-title">Cara Meminum Ramune</div>
-        <strong>Shonichi:</strong> 17 Juli 2025<br>
-        <strong>Unit Song:</strong> Finland Miracle<br><br>
-      </div>
-    </div>
-  </div>
-
-</div>
-</section>
-      </div>
-      <div id="timeline" class="content-section">   
-<!-- 🎡 TIMELINE TRISHA -->
-<section class="timeline-trisha">
-  <h2>Timeline Trisha</h2>
-  <div class="timeline-wrapper">
-    
-    <!-- RODA TIMELINE -->
-    <div class="wheel-wrapper">
-      <div class="arrow"></div>
-      <canvas id="wheelCanvas" width="500" height="500"></canvas>
-      <div class="wheel-center"></div>
-    </div>
-
-    <!-- KETERANGAN EVENT -->
-    <div class="event-info">
-      <h3 id="event-title">Debut Trainee</h3>
-      <p id="event-desc">Trisha tampil pertama kali sebagai trainee generasi 12 di JKT48 Academy! 💫</p>
-      <img id="event-img" src="debut.jpg" alt="Event Image" style="width:100%;border-radius:12px;margin-top:12px;">
-    </div>
-
-  </div>
-</section>
-      </div>
+      <!-- #️⃣ HASHTAG -->
       <div id="hashtag" class="content-section">
         [section hashtag kamu di sini]
       </div>
+
+      <!-- 💌 PESAN -->
       <div id="pesan" class="content-section">
         [section pesan kamu di sini]
       </div>
@@ -1432,9 +1501,9 @@ const slices = [
   "Shonichi Ramune"
 ];
 const colors = [
-  "#FF595E", "#FFCA3A", "#8AC926", "#1982C4", "#6A4C93",
-  "#FF924C", "#FF595E", "#FFCA3A", "#8AC926", "#1982C4",
-  "#FF595E", "#FFCA3A", "#8AC926", "#1982C4"
+  "#FF85A1", "#66C3FF", "#B084F6", "#FFD56B", "#7EE8B5",
+  "#FF85A1", "#66C3FF", "#B084F6", "#FFD56B", "#7EE8B5",
+  "#FF85A1", "#66C3FF", "#B084F6", "#FFD56B"
 ];
 
 let rotation = 0;
@@ -1546,7 +1615,7 @@ const events = [
   {title: "Shonichi Off air", desc: "<b>4 Mei 2024</b> - Penampilan off air pertama Trisha di Event Panggung Panas Pekanbaru. 🎤", img: "tlshonichioffair.jpg"},
   {title: "First MNG", desc: "<b>11 Mei 2024</b> - Meet and Greet pertama Trisha dengan fans di Event Spring Has Come! 💬", img: "tlfirstmng.jpg"},
   {title: "Shonichi Pajama", desc: "<b>30 Mei 2024</b> - Debut Trisha dalam setlist Pajama Drive. 💃", img: "tlshonichipajama.jpg"},
-  {title: "First MV", desc: "<b>20 Agustus 2024</b> - Trisha tampil di MV pertamanya bersama JKT48! 🎬", img: "tlfirstmv.jpg"},
+  {title: "First MV", desc: "<b>20 Agustus 2024</b> - Trisha tampil di MV pertamanya bersama JKT48! MV Belalang yang Membangkang 🎬", img: "tlfirstmv.jpg"},
   {title: "Second MNG", desc: "<b>28 September 2024</b> - Meet and Greet kedua Trisha dengan suasana hangat. Road to Sousenkyo 💖", img: "tlsecondmng.jpg"},
   {title: "First OFC Event", desc: "<b>30 September 2024</b> - Trisha hadir di event OFC pertamanya! Sudden Versus 💫", img: "tlfirstofc.jpg"},
   {title: "Third MNG", desc: "<b>8 Februari 2025</b> - Trisha kembali menyapa fans di MNG ketiga! #KuSangatSuka 😊", img: "tlthirdmng.jpg"},
@@ -1580,6 +1649,28 @@ buttons.forEach(btn => {
     // Tambahkan active di tombol dan section yang diklik
     btn.classList.add('active');
     document.getElementById(btn.dataset.target).classList.add('active');
+  });
+});
+</script>
+
+<script>
+// 🎬 Ganti konten saat tombol diklik
+document.addEventListener("DOMContentLoaded", () => {
+  const buttons = document.querySelectorAll(".activity-btn");
+  const sections = document.querySelectorAll(".content-section");
+
+  buttons.forEach(btn => {
+    btn.addEventListener("click", () => {
+      const target = btn.getAttribute("data-target");
+
+      // hapus status aktif dari semua tombol dan section
+      buttons.forEach(b => b.classList.remove("active"));
+      sections.forEach(s => s.classList.remove("active"));
+
+      // aktifkan tombol yang diklik dan section target-nya
+      btn.classList.add("active");
+      document.getElementById(target).classList.add("active");
+    });
   });
 });
 </script>
