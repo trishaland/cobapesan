@@ -902,47 +902,66 @@
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
 }
 
-/* warna pastel cerah */
-.activity-btn.rekapshow { background-color: #66C3FF; }
-.activity-btn.timeline  { background-color: #FFD56B; }
-.activity-btn.hashtag   { background-color: #B084F6; }
-.activity-btn.pesan     { background-color: #FF85A1; }
+/* 🌈 Warna tombol default (cerah pastel Trishaland) */
+.activity-btn.rekapshow { background-color: #66C3FF; }  /* biru muda */
+.activity-btn.timeline  { background-color: #FFD56B; }  /* kuning muda */
+.activity-btn.hashtag   { background-color: #B084F6; }  /* ungu muda */
+.activity-btn.pesan     { background-color: #FF85A1; }  /* pink muda */
 
-.activity-btn .emoji {
-  font-size: 2.4rem;
-  margin-bottom: 6px;
-  transition: transform 0.25s ease;
+/* 💫 Warna tombol AKTIF (lebih kontras dan saturasi lebih tinggi) */
+.activity-btn.active.rekapshow { 
+  background-color: #007BFF;              /* biru vivid */
+  box-shadow: 0 0 20px rgba(0, 123, 255, 0.6);
 }
 
-.activity-btn .label {
-  font-size: 1rem;
-  letter-spacing: 0.5px;
+.activity-btn.active.timeline { 
+  background-color: #FFB300;              /* kuning keemasan */
+  box-shadow: 0 0 20px rgba(255, 179, 0, 0.6);
 }
 
-.activity-btn:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 10px 18px rgba(0, 0, 0, 0.15);
+.activity-btn.active.hashtag { 
+  background-color: #7A3EF5;              /* ungu terang pekat */
+  box-shadow: 0 0 20px rgba(122, 62, 245, 0.6);
 }
 
-.activity-btn:hover .emoji {
-  transform: scale(1.15);
+.activity-btn.active.pesan { 
+  background-color: #FF3E6C;              /* pink magenta vivid */
+  box-shadow: 0 0 20px rgba(255, 62, 108, 0.6);
 }
 
-/* 📱 mobile */
+/* ✨ Efek tombol aktif (umum) */
+.activity-btn.active {
+  position: relative;
+  transform: translateY(-3px);
+  outline: 3px solid rgba(255, 255, 255, 0.4);
+  transition: all 0.3s ease;
+}
+
+/* 🌟 Indikator titik kecil di bawah tombol aktif */
+.activity-btn.active::after {
+  content: "";
+  position: absolute;
+  bottom: 8px;
+  width: 10px;
+  height: 10px;
+  background: #fff;
+  border-radius: 50%;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.9);
+  animation: pulseDot 1.2s infinite ease-in-out;
+}
+
+/* 🫧 Animasi titik aktif berdenyut lembut */
+@keyframes pulseDot {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.4); opacity: 0.6; }
+}
+
+/* 📱 Mobile: kecilin indikator */
 @media (max-width: 768px) {
-  .activity-btn {
-    width: 70px;
-    height: 70px;
-    border-radius: 18px;
-  }
-
-  .activity-btn .label {
-    display: none;
-  }
-
-  .activity-btn .emoji {
-    font-size: 1.9rem;
-    margin-bottom: 0;
+  .activity-btn.active::after {
+    bottom: 5px;
+    width: 7px;
+    height: 7px;
   }
 }
 </style>
