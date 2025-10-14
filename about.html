@@ -468,9 +468,10 @@
   }
 
   .flip-card {
-    width: 85%;
-    max-width: 320px;
-    height: 340px; /* tinggi tetap agar tak hilang */
+    width: 95%;          /* sebelumnya 85%, biar lebih lebar */
+    max-width: 380px;    /* sebelumnya 320px, biar proporsional */
+    height: auto;        /* sebelumnya 340px, biar fleksibel */
+    aspect-ratio: 3 / 4; /* biar bentuknya tetap seimbang */
   }
 
   .flip-card-inner {
@@ -478,7 +479,8 @@
   }
 
   .flip-card-front img {
-    height: 75%;
+    height: 100%;        /* sebelumnya 75%, biar isi penuh */
+    object-fit: cover;   /* biar gambar gak gepeng */
   }
 }
 
