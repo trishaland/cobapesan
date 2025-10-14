@@ -1822,15 +1822,26 @@ document.addEventListener("DOMContentLoaded", () => {
 <script>
   const cards = document.querySelectorAll('.hashtag-card');
 
-  // hanya aktif di mobile (layar kecil)
   function enableMobileClick() {
+    // hapus dulu semua event lama supaya gak dobel
+    cards.forEach(c => c.replaceWith(c.cloneNode(true)));
+    const newCards = document.querySelectorAll('.hashtag-card');
+
     if (window.innerWidth <= 768) {
-      cards.forEach(card => {
-        card.addEventListener('click', () => {
+      newCards.forEach(card => {
+        card.addEventListener('click', e => {
+          e.stopPropagation(); // cegah klik ini dianggap "klik luar"
           const isActive = card.classList.contains('active');
-          cards.forEach(c => c.classList.remove('active'));
+          newCards.forEach(c => c.classList.remove('active'));
           if (!isActive) card.classList.add('active');
         });
+      });
+
+      // 🔹 kalau klik di luar area hashtag-card → tutup semua
+      document.addEventListener('click', e => {
+        if (!e.target.closest('.hashtag-card')) {
+          newCards.forEach(c => c.classList.remove('active'));
+        }
       });
     }
   }
