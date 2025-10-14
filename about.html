@@ -633,16 +633,18 @@
   }
 
   /* 🔽 Panah putih dibalik — sekarang lancipnya ke arah roda */
-  .arrow {
-    left: -18px;  /* geser ke kiri sedikit */
-    right: auto;
-    top: 50%;
-    transform: translateY(-50%) rotate(180deg); /* rotasi panah ke arah roda */
-    border-top: 15px solid transparent;
-    border-bottom: 15px solid transparent;
-    border-right: 25px solid #fff; /* arah panahnya dibalik */
-    filter: drop-shadow(0 0 3px rgba(0,0,0,0.3));
-  }
+.arrow {
+  position: absolute;
+  right: -22px; /* tetap di kanan */
+  top: 50%;
+  transform: translateY(-50%) rotate(180deg); /* dibalik arahnya */
+  width: 0;
+  height: 0;
+  border-top: 15px solid transparent;
+  border-bottom: 15px solid transparent;
+  border-right: 25px solid #fff; /* ubah dari border-left jadi border-right */
+  filter: drop-shadow(0 0 3px rgba(0,0,0,0.3));
+}
 
   .wheel-center {
     width: 45px;
@@ -684,18 +686,20 @@
 .trisha-activities .desc {
   color: #666;
   max-width: 600px;
-  margin: 0 auto 40px;  /* ini yang bikin dia ke tengah */
+  margin: 0 auto 35px;
   font-size: 1rem;
-  text-align: center;   /* biar teks rata tengah */
-  padding: 0 25px;      /* tambah padding biar gak mepet pinggir HP */
+  text-align: center;
+  padding: 0 25px;
   line-height: 1.6;
+  transform: translateX(-5px); /* geser sedikit ke kiri */
 }
 
 @media (max-width: 768px) {
   .trisha-activities .desc {
-    font-size: 0.85rem;  /* sedikit lebih kecil di mobile */
-    padding: 0 20px;     /* tetap ada ruang kanan kiri */
-    margin-bottom: 30px;
+    font-size: 0.85rem;
+    padding: 0 20px;
+    margin-bottom: 25px;
+    transform: translateX(-8px); /* geser sedikit lebih kiri di mobile */
   }
 }
 
