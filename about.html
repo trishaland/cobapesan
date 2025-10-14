@@ -881,6 +881,137 @@
     margin-bottom: 35px; /* 🧩 lebih kecil biar pas di mobile */
   }
 }
+
+/* 🎯 HASHTAG SECTION */
+.trisha-hashtag {
+  background: #f0f6ff;
+  text-align: center;
+  padding: 80px 20px;
+  font-family: 'Poppins', sans-serif;
+}
+
+.trisha-hashtag h2 {
+  font-size: 2.4rem;
+  color: #2a2a7f;
+  margin-bottom: 10px;
+  font-weight: 700;
+}
+
+.trisha-hashtag h2 span {
+  color: #6a7cff;
+}
+
+.trisha-hashtag .desc {
+  color: #666;
+  max-width: 600px;
+  margin: 0 auto 40px;
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+/* GRID */
+.hashtag-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 25px;
+  justify-content: center;
+  align-items: start;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+/* CARD */
+.hashtag-card {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 25px 10px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #333;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  transition: all 0.3s ease;
+  cursor: pointer;
+  overflow: hidden;
+  position: relative;
+}
+
+.hashtag-card span {
+  display: block;
+  transition: transform 0.3s ease;
+}
+
+.hashtag-card:hover {
+  transform: scale(1.04);
+  background: #6a7cff;
+  color: #fff;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+}
+
+/* DESKRIPSI */
+.desc-box {
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: all 0.4s ease;
+}
+
+.hashtag-card:hover .desc-box,
+.hashtag-card.active .desc-box {
+  max-height: 180px;
+  opacity: 1;
+  margin-top: 10px;
+}
+
+.desc-box p {
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: #fefefe;
+  margin-bottom: 12px;
+}
+
+.desc-box a {
+  display: inline-block;
+  padding: 8px 16px;
+  background: #fff;
+  color: #6a7cff;
+  font-weight: 600;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: 0.25s;
+}
+
+.desc-box a:hover {
+  background: #e8ebff;
+}
+
+/* MOBILE */
+@media (max-width: 768px) {
+  .hashtag-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+  }
+
+  .hashtag-card {
+    font-size: 0.9rem;
+    padding: 18px 6px;
+  }
+
+  .desc-box p {
+    font-size: 0.8rem;
+  }
+
+  .hashtag-card:hover {
+    transform: none;
+  }
+
+  .trisha-hashtag h2 {
+    font-size: 1.8rem;
+  }
+
+  .trisha-hashtag .desc {
+    font-size: 0.85rem;
+  }
+}
 </style>
 
   <script>
@@ -1164,7 +1295,84 @@
 
       <!-- #️⃣ HASHTAG -->
       <div id="hashtag" class="content-section">
-        [section hashtag kamu di sini]
+<section class="trisha-hashtag">
+  <h2><span>Trisha</span> Hashtag</h2>
+  <p class="desc">Kumpulan tagar khas Trisha untuk momen-momen seru bersama penggemar!</p>
+
+  <div class="hashtag-grid">
+    <div class="hashtag-card">
+      <span>#TrishAfternoon</span>
+      <div class="desc-box">
+        <p>Hashtag yang digunakan setiap sore hari untuk berbagi kehangatan bersama Trisha.</p>
+        <a href="#" target="_blank">Selengkapnya</a>
+      </div>
+    </div>
+
+    <div class="hashtag-card">
+      <span>#TrishArt</span>
+      <div class="desc-box">
+        <p>Digunakan untuk mengumpulkan berbagai karya dan kreativitas dari Trisha.</p>
+        <a href="#" target="_blank">Selengkapnya</a>
+      </div>
+    </div>
+
+    <div class="hashtag-card">
+      <span>#Trishartuday</span>
+      <div class="desc-box">
+        <p>Dipakai setiap hari Sabtu untuk posting keseruan weekend bersama Trisha!</p>
+        <a href="#" target="_blank">Selengkapnya</a>
+      </div>
+    </div>
+
+    <div class="hashtag-card">
+      <span>#WannaSeeTrisha</span>
+      <div class="desc-box">
+        <p>Untuk momen video call bareng Trisha — Wanna See Trisha!</p>
+        <a href="#" target="_blank">Selengkapnya</a>
+      </div>
+    </div>
+
+    <div class="hashtag-card">
+      <span>#Trishaur</span>
+      <div class="desc-box">
+        <p>Untuk video call sahur bersama Trisha di bulan Ramadhan.</p>
+        <a href="#" target="_blank">Selengkapnya</a>
+      </div>
+    </div>
+
+    <div class="hashtag-card">
+      <span>#Trishelca</span>
+      <div class="desc-box">
+        <p>Tempat Trisha membagikan foto-foto selfienya yang menggemaskan!</p>
+        <a href="#" target="_blank">Selengkapnya</a>
+      </div>
+    </div>
+
+    <div class="hashtag-card">
+      <span>#CallTrisha</span>
+      <div class="desc-box">
+        <p>Gunakan ini untuk memanggil atau berinteraksi langsung dengan Trisha lewat call event!</p>
+        <a href="#" target="_blank">Selengkapnya</a>
+      </div>
+    </div>
+
+    <div class="hashtag-card">
+      <span>#RuangBermain</span>
+      <div class="desc-box">
+        <p>Untuk memberikan semangat dan dukungan kepada Trisha, seperti ruang bermain bersama.</p>
+        <a href="#" target="_blank">Selengkapnya</a>
+      </div>
+    </div>
+
+    <div class="hashtag-card">
+      <span>#Inshastory</span>
+      <div class="desc-box">
+        <p>Untuk membalas atau membagikan pesan spesial dari Trisha di private message!</p>
+        <a href="#" target="_blank">Selengkapnya</a>
+      </div>
+    </div>
+  </div>
+</section>
       </div>
 
       <!-- 💌 PESAN -->
@@ -1609,6 +1817,26 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 });
+</script>
+
+<script>
+  const cards = document.querySelectorAll('.hashtag-card');
+
+  // hanya aktif di mobile (layar kecil)
+  function enableMobileClick() {
+    if (window.innerWidth <= 768) {
+      cards.forEach(card => {
+        card.addEventListener('click', () => {
+          const isActive = card.classList.contains('active');
+          cards.forEach(c => c.classList.remove('active'));
+          if (!isActive) card.classList.add('active');
+        });
+      });
+    }
+  }
+
+  enableMobileClick();
+  window.addEventListener('resize', enableMobileClick);
 </script>
 </body>
 </html>
