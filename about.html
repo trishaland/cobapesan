@@ -619,12 +619,12 @@
     align-items: center;
   }
 
-  /* 🔵 Roda lebih kecil dan tetap di dalam box */
+  /* 🔵 Ukuran roda diatur supaya pas di box */
   .wheel-wrapper {
-    width: 230px;       /* sebelumnya 260px */
+    width: 230px;
     height: 230px;
     position: relative;
-    overflow: hidden;   /* biar panah gak keluar */
+    overflow: hidden; /* biar panah gak keluar */
   }
 
   #wheelCanvas {
@@ -632,10 +632,16 @@
     height: 230px;
   }
 
-  /* 🔹 Panah penunjuk tetap di dalam batas box */
+  /* 🔽 Panah putih dibalik — sekarang lancipnya ke arah roda */
   .arrow {
-    right: -10px;       /* sebelumnya -22px */
-    border-left: 18px solid #fff; /* kecilin dikit biar proporsional */
+    left: -18px;  /* geser ke kiri sedikit */
+    right: auto;
+    top: 50%;
+    transform: translateY(-50%) rotate(180deg); /* rotasi panah ke arah roda */
+    border-top: 15px solid transparent;
+    border-bottom: 15px solid transparent;
+    border-right: 25px solid #fff; /* arah panahnya dibalik */
+    filter: drop-shadow(0 0 3px rgba(0,0,0,0.3));
   }
 
   .wheel-center {
@@ -678,8 +684,19 @@
 .trisha-activities .desc {
   color: #666;
   max-width: 600px;
-  margin: 0 auto 40px;
+  margin: 0 auto 40px;  /* ini yang bikin dia ke tengah */
   font-size: 1rem;
+  text-align: center;   /* biar teks rata tengah */
+  padding: 0 25px;      /* tambah padding biar gak mepet pinggir HP */
+  line-height: 1.6;
+}
+
+@media (max-width: 768px) {
+  .trisha-activities .desc {
+    font-size: 0.85rem;  /* sedikit lebih kecil di mobile */
+    padding: 0 20px;     /* tetap ada ruang kanan kiri */
+    margin-bottom: 30px;
+  }
 }
 
 .activity-grid {
