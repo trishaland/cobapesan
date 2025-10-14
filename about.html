@@ -960,18 +960,6 @@
   max-height: 180px;
   opacity: 1;
   margin-top: 10px;
-  animation: fadeInUp 0.4s ease;
-}
-
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
 }
 
 .desc-box p {
@@ -1000,32 +988,16 @@
 @media (max-width: 768px) {
   .hashtag-grid {
     grid-template-columns: repeat(2, 1fr);
-    gap: 14px;
-    padding: 10px;
+    gap: 15px;
   }
 
   .hashtag-card {
-    font-size: 1rem;
-    padding: 22px 10px; /* lebih besar biar lega */
-    border-radius: 14px;
-    min-height: 100px;
-  }
-
-  .desc-box {
-    max-height: none;
+    font-size: 0.9rem;
+    padding: 18px 6px;
   }
 
   .desc-box p {
-    font-size: 0.85rem;
-    line-height: 1.4;
-  }
-
-  .desc-box a {
-    font-size: 0.85rem;
-    padding: 9px 20px; /* perbesar tombol */
-    border-radius: 10px;
-    margin-top: 6px;
-    white-space: nowrap;
+    font-size: 0.8rem;
   }
 
   .hashtag-card:hover {
