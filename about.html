@@ -1111,6 +1111,7 @@
     <div class="event-info">
       <h3 id="event-title">Debut Trainee</h3>
       <p id="event-desc">Trisha tampil pertama kali sebagai trainee generasi 12 di JKT48 Academy! 💫</p>
+      <img id="event-img" src="debut.jpg" alt="Event Image" style="width:100%;border-radius:12px;margin-top:12px;">
     </div>
 
   </div>
@@ -1491,16 +1492,16 @@ function animateSpin() {
 
 /* 🎯 Update event aktif */
 const events = [
-  {title: "Debut Trainee", desc: "Trisha tampil pertama kali sebagai trainee generasi 12 di JKT48 Academy! 💫"},
-  {title: "Shonichi Pajama Drive", desc: "Trisha menjalani debut teater pertama dalam setlist legendaris Pajama Drive. 🌟"},
-  {title: "Pertama MC", desc: "Trisha membawakan MC pertamanya dengan penuh semangat dan tawa. 🎤"},
-  {title: "Birthday Show", desc: "Show spesial ulang tahun Trisha dengan banyak kejutan dari fans! 🎂"},
-  {title: "Masuk Unit Song Baru", desc: "Trisha dipercaya untuk tampil di unit song baru dengan performa memukau. 💃"},
-  {title: "Event Fansign", desc: "Trisha ikut serta dalam fansign event dan ngobrol hangat sama fans! 🩷"},
-  {title: "Global Center", desc: "Trisha terpilih sebagai Global Center untuk pertunjukan besar. ✨"},
-  {title: "JKT48 Festival", desc: "Trisha tampil memukau dalam JKT48 Festival, membawa energi luar biasa! 🎉"},
-  {title: "Collab Show", desc: "Trisha berkolaborasi dengan member lain dalam penampilan spesial. 💫"},
-  {title: "Ramune Shonichi", desc: "Trisha tampil di setlist baru ‘Cara Meminum Ramune’ untuk pertama kalinya. 💧"}
+  {title: "Debut Trainee", desc: "Trisha tampil pertama kali sebagai trainee generasi 12 di JKT48 Academy! 💫", img: "debut.jpg"},
+  {title: "Shonichi Pajama Drive", desc: "Trisha menjalani debut teater pertama dalam setlist legendaris Pajama Drive. 🌟", img: "pajama.jpg"},
+  {title: "Pertama MC", desc: "Trisha membawakan MC pertamanya dengan penuh semangat dan tawa. 🎤", img: "mc.jpg"},
+  {title: "Birthday Show", desc: "Show spesial ulang tahun Trisha dengan banyak kejutan dari fans! 🎂", img: "birthday.jpg"},
+  {title: "Masuk Unit Song Baru", desc: "Trisha dipercaya untuk tampil di unit song baru dengan performa memukau. 💃", img: "unit.jpg"},
+  {title: "Event Fansign", desc: "Trisha ikut serta dalam fansign event dan ngobrol hangat sama fans! 🩷", img: "fansign.jpg"},
+  {title: "Global Center", desc: "Trisha terpilih sebagai Global Center untuk pertunjukan besar. ✨", img: "center.jpg"},
+  {title: "JKT48 Festival", desc: "Trisha tampil memukau dalam JKT48 Festival, membawa energi luar biasa! 🎉", img: "festival.jpg"},
+  {title: "Collab Show", desc: "Trisha berkolaborasi dengan member lain dalam penampilan spesial. 💫", img: "collab.jpg"},
+  {title: "Ramune Shonichi", desc: "Trisha tampil di setlist baru ‘Cara Meminum Ramune’ untuk pertama kalinya. 💧", img: "ramune.jpg"}
 ];
 
 function updateActiveEvent() {
@@ -1509,6 +1510,7 @@ function updateActiveEvent() {
   const event = events[index];
   document.getElementById('event-title').textContent = event.title;
   document.getElementById('event-desc').textContent = event.desc;
+  document.getElementById('event-img').src = event.img;
 }
 </script>
 
