@@ -1828,24 +1828,30 @@ document.addEventListener("DOMContentLoaded", () => {
     cards.forEach(c => c.replaceWith(c.cloneNode(true)));
     const newCards = document.querySelectorAll('.hashtag-card');
 
-    if (window.innerWidth <= 768) {
-      newCards.forEach(card => {
-        card.addEventListener('click', e => {
-          e.stopPropagation(); // cegah klik ini dianggap "klik luar"
-          const isActive = card.classList.contains('active');
-          newCards.forEach(c => c.classList.remove('active'));
-          if (!isActive) card.classList.add('active');
-        });
-      });
+if (window.innerWidth <= 768) {
+  newCards.forEach(card => {
+    card.addEventListener('click', e => {
+      e.stopPropagation();
+      const isActive = card.classList.contains('active');
 
-      // 🔹 kalau klik di luar area hashtag-card → tutup semua
-      document.addEventListener('click', e => {
-        if (!e.target.closest('.hashtag-card')) {
-          newCards.forEach(c => c.classList.remove('active'));
-        }
-      });
+      // kalau yang diklik lagi, tutup
+      if (isActive) {
+        card.classList.remove('active');
+      } else {
+        // kalau klik kartu lain, buka yang baru dan tutup lainnya
+        newCards.forEach(c => c.classList.remove('active'));
+        card.classList.add('active');
+      }
+    });
+  });
+
+  // klik luar area hashtag → nutup semua
+  document.addEventListener('click', e => {
+    if (!e.target.closest('.hashtag-card')) {
+      newCards.forEach(c => c.classList.remove('active'));
     }
-  }
+  });
+}
 
   enableMobileClick();
   window.addEventListener('resize', enableMobileClick);
