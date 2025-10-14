@@ -866,6 +866,21 @@
     margin-top: 35px;     /* beri spasi biar tidak nempel */
   }
 }
+
+.activity-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 25px;
+  margin-bottom: 60px; /* 🆕 jarak lebih lega di desktop */
+}
+
+/* 📱 Mobile: tetap rapat supaya pas di layar */
+@media (max-width: 768px) {
+  .activity-grid {
+    margin-bottom: 35px; /* 🧩 lebih kecil biar pas di mobile */
+  }
+}
 </style>
 
   <script>
