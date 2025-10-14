@@ -987,14 +987,15 @@
 /* MOBILE */
 @media (max-width: 768px) {
   .hashtag-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 15px;
+    grid-template-columns: 1fr;   /* dari 2 kolom → 1 kolom */
+    gap: 18px;                     /* bisa agak longgar sedikit */
   }
 
   .hashtag-card {
-    font-size: 0.9rem;
-    padding: 18px 6px;
+    font-size: 1rem;              /* supaya tetap terbaca jelas */
+    padding: 20px 12px;           /* lebarkan sedikit supaya aman */
   }
+}
 
   .desc-box p {
     font-size: 0.8rem;
