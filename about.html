@@ -662,221 +662,7 @@
   }
 }
 
-.trisha-activities {
-  background: #f6f8ff;
-  text-align: center;
-  padding: 80px 20px 60px;
-  font-family: 'Poppins', sans-serif;
-}
-
-.trisha-activities h2 {
-  font-size: 2.3rem;
-  color: #2a2a7f;
-  margin-bottom: 10px;
-  font-weight: 700;
-}
-
-.trisha-activities h2 span {
-  color: #6a7cff;
-}
-
-.trisha-activities .desc {
-  color: #666;
-  max-width: 600px;
-  margin: 0 auto 35px;
-  font-size: 1rem;
-  text-align: center;
-  padding: 0 25px;
-  line-height: 1.6;
-  transform: translateX(-5px); /* geser sedikit ke kiri */
-}
-
-@media (max-width: 768px) {
-  .trisha-activities .desc {
-    font-size: 0.85rem;
-    padding: 0 20px;
-    margin-bottom: 25px;
-    transform: translateX(-8px); /* geser sedikit lebih kiri di mobile */
-  }
-}
-
-.activity-grid {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 25px;
-  margin-bottom: 40px;
-}
-
-.activity-card {
-  flex: 1 1 200px;
-  max-width: 230px;
-  min-width: 180px;
-  border: none;
-  border-radius: 16px;
-  padding: 35px 20px;
-  color: white;
-  font-weight: 600;
-  cursor: pointer;
-  transition: 0.3s ease;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-  white-space: nowrap;
-}
-
-.activity-card i {
-  font-size: 2rem;
-  margin-bottom: 12px;
-  display: block;
-}
-
-.activity-card h3 {
-  font-size: 1.05rem;
-}
-
-.activity-card.blue { background: #66C3FF; }
-.activity-card.green { background: #7EE8B5; }
-.activity-card.orange { background: #FFD56B; }
-.activity-card.purple { background: #B084F6; }
-
-.activity-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 6px 14px rgba(0,0,0,0.15);
-}
-
-.activity-card.active {
-  outline: 4px solid #fff;
-  box-shadow: 0 0 0 4px rgba(0,0,0,0.1);
-}
-/* Konten dinamis */
-.activity-content {
-  background: white;
-  border-radius: 20px;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-  padding: 50px 40px;      /* ⬅️ lebih lega */
-  max-width: 1100px;       /* ⬅️ lebih lebar */
-  margin: 0 auto;
-  text-align: left;
-  min-height: 500px;       /* ⬅️ biar nggak kepotong */
-  box-sizing: border-box;  /* ⬅️ jaga proporsi padding */
-}
-
-.content-section {
-  display: none;
-  animation: fadeIn 0.4s ease;
-  width: 100%;             /* ⬅️ pastikan full */
-  overflow: visible;       /* ⬅️ konten panjang nggak terpotong */
-}
-
-.content-section.active {
-  display: block;
-}
-
-@media (max-width: 768px) {
-  .activity-content {
-    padding: 40px 20px;
-    min-height: 600px; /* lebih tinggi di mobile biar muat spin wheel */
-  }
-}
-
-/* 🌈 Perubahan untuk tampilan mobile (Pilihan B — fix 4 box sejajar) */
-@media (max-width: 768px) {
-  .activity-grid {
-    flex-wrap: nowrap;
-    justify-content: space-between;
-    overflow: hidden; /* hilangkan geser horizontal */
-    padding: 0 5px;   /* sedikit padding biar gak nempel tepi */
-    gap: 4px;         /* lebih kecil biar muat pas */
-  }
-
-  .activity-card {
-    flex: 0 0 calc(25% - 4px); /* 4 kolom pas di layar */
-    min-width: unset;
-    max-width: unset;
-    padding: 15px 4px;  /* kecilin padding biar proporsional */
-    font-size: 0.65rem; /* kecilin teks */
-    text-align: center;
-    border-radius: 12px; /* biar tetap smooth */
-  }
-
-  .activity-card i {
-    font-size: 1.2rem;
-    margin-bottom: 4px;
-  }
-
-  .trisha-activities h2 {
-    font-size: 1.4rem;
-  }
-
-  .trisha-activities .desc {
-    font-size: 0.7rem;
-    margin-bottom: 25px;
-  }
-}
-
-/* 🎯 Segitiga indikator bawah card aktif */
-.activity-card.active {
-  position: relative;
-  outline: none;
-  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.15);
-}
-
-.activity-card.active::after {
-  content: "";
-  position: absolute;
-  bottom: -23px; /* 🔽 ubah ini kalau mau segitiganya lebih turun */
-  left: 50%;
-  transform: translateX(-50%);
-  width: 0;
-  height: 0;
-  border-left: 25px solid transparent;  /* lebar segitiga */
-  border-right: 25px solid transparent;
-  filter: drop-shadow(0 2px 2px rgba(0,0,0,0.1));
-}
-
-/* 🎨 Warna segitiga sesuai card */
-.activity-card.blue.active::after {
-  border-top: 25px solid #66C3FF;
-}
-.activity-card.green.active::after {
-  border-top: 25px solid #7EE8B5;
-}
-.activity-card.orange.active::after {
-  border-top: 25px solid #FFD56B;
-}
-.activity-card.purple.active::after {
-  border-top: 25px solid #B084F6;
-}
-
-/* 📱 Mobile */
-@media (max-width: 768px) {
-  .activity-grid {
-    overflow: visible;
-  }
-
-  .activity-content {
-    margin-top: 60px; /* biar gak ketutupan segitiga besar */
-  }
-
-  .activity-card.active::after {
-    bottom: -18px; /* 🔽 di mobile juga bisa kamu ubah, misalnya -22px biar makin turun */
-    border-left: 20px solid transparent;
-    border-right: 20px solid transparent;
-  }
-
-  .activity-card.blue.active::after {
-    border-top: 20px solid #66C3FF;
-  }
-  .activity-card.green.active::after {
-    border-top: 20px solid #7EE8B5;
-  }
-  .activity-card.orange.active::after {
-    border-top: 20px solid #FFD56B;
-  }
-  .activity-card.purple.active::after {
-    border-top: 20px solid #B084F6;
-  }
-}
-
+/* 🎡 Tombol Aktivitas (Desktop Default) */
 .activity-buttons {
   display: flex;
   flex-wrap: wrap;
@@ -902,34 +688,31 @@
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
 }
 
-/* 🌈 Warna tombol default (cerah pastel Trishaland) */
-.activity-btn.rekapshow { background-color: #66C3FF; }  /* biru muda */
-.activity-btn.timeline  { background-color: #FFD56B; }  /* kuning muda */
-.activity-btn.hashtag   { background-color: #B084F6; }  /* ungu muda */
-.activity-btn.pesan     { background-color: #FF85A1; }  /* pink muda */
+/* 🌈 Warna tombol default (Trishaland pastel cerah) */
+.activity-btn.rekapshow { background-color: #66C3FF; }
+.activity-btn.timeline  { background-color: #FFD56B; }
+.activity-btn.hashtag   { background-color: #B084F6; }
+.activity-btn.pesan     { background-color: #FF85A1; }
 
-/* 💫 Warna tombol AKTIF (lebih kontras dan saturasi lebih tinggi) */
-.activity-btn.active.rekapshow { 
-  background-color: #007BFF;              /* biru vivid */
+/* 💫 Warna tombol aktif (lebih tegas dan glowing) */
+.activity-btn.active.rekapshow {
+  background-color: #007BFF;
   box-shadow: 0 0 20px rgba(0, 123, 255, 0.6);
 }
-
-.activity-btn.active.timeline { 
-  background-color: #FFB300;              /* kuning keemasan */
+.activity-btn.active.timeline {
+  background-color: #FFB300;
   box-shadow: 0 0 20px rgba(255, 179, 0, 0.6);
 }
-
-.activity-btn.active.hashtag { 
-  background-color: #7A3EF5;              /* ungu terang pekat */
+.activity-btn.active.hashtag {
+  background-color: #7A3EF5;
   box-shadow: 0 0 20px rgba(122, 62, 245, 0.6);
 }
-
-.activity-btn.active.pesan { 
-  background-color: #FF3E6C;              /* pink magenta vivid */
+.activity-btn.active.pesan {
+  background-color: #FF3E6C;
   box-shadow: 0 0 20px rgba(255, 62, 108, 0.6);
 }
 
-/* ✨ Efek tombol aktif (umum) */
+/* ✨ Efek tombol aktif */
 .activity-btn.active {
   position: relative;
   transform: translateY(-3px);
@@ -937,7 +720,7 @@
   transition: all 0.3s ease;
 }
 
-/* 🌟 Indikator titik kecil di bawah tombol aktif */
+/* 🌟 Indikator titik bawah */
 .activity-btn.active::after {
   content: "";
   position: absolute;
@@ -950,16 +733,61 @@
   animation: pulseDot 1.2s infinite ease-in-out;
 }
 
-/* 🫧 Animasi titik aktif berdenyut lembut */
+/* ✨ Animasi titik aktif */
 @keyframes pulseDot {
   0%, 100% { transform: scale(1); opacity: 1; }
   50% { transform: scale(1.4); opacity: 0.6; }
 }
 
-/* 📱 Mobile: kecilin indikator */
+/* ✨ Emoji & Label */
+.activity-btn .emoji {
+  font-size: 2.4rem;
+  margin-bottom: 6px;
+  transition: transform 0.25s ease;
+}
+.activity-btn .label {
+  font-size: 1rem;
+  letter-spacing: 0.5px;
+}
+
+/* Hover (Desktop) */
+.activity-btn:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 18px rgba(0, 0, 0, 0.15);
+}
+.activity-btn:hover .emoji {
+  transform: scale(1.15);
+}
+
+/* 📱 MOBILE RESPONSIVE */
 @media (max-width: 768px) {
+  .activity-buttons {
+    justify-content: space-evenly;
+    gap: 14px; /* rapat dikit tapi tetap nyaman */
+    margin-top: 25px;
+  }
+
+  .activity-btn {
+    width: 70px;       /* lebih kecil biar muat */
+    height: 70px;
+    border-radius: 16px;
+    padding: 0;
+  }
+
+  /* cuma emoji aja */
+  .activity-btn .label {
+    display: none;
+  }
+
+  /* emoji lebih besar biar proporsional */
+  .activity-btn .emoji {
+    font-size: 2.8rem;  /* dinaikkan dari 2.4 → 2.8 */
+    margin-bottom: 0;
+  }
+
+  /* titik aktif disesuaikan */
   .activity-btn.active::after {
-    bottom: 5px;
+    bottom: 4px;
     width: 7px;
     height: 7px;
   }
