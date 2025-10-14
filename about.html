@@ -1821,40 +1821,47 @@ document.addEventListener("DOMContentLoaded", () => {
 </script>
 
 <script>
-  const cards = document.querySelectorAll('.hashtag-card');
+const cards = document.querySelectorAll('.hashtag-card');
 
-  function enableMobileClick() {
-    // hapus dulu semua event lama supaya gak dobel
-    cards.forEach(c => c.replaceWith(c.cloneNode(true)));
-    const newCards = document.querySelectorAll('.hashtag-card');
+function enableMobileClick() {
+  const newCards = document.querySelectorAll('.hashtag-card');
 
-if (window.innerWidth <= 768) {
+  // Hapus event lama
   newCards.forEach(card => {
-    card.addEventListener('click', e => {
-      e.stopPropagation();
-      const isActive = card.classList.contains('active');
+    const clone = card.cloneNode(true);
+    card.parentNode.replaceChild(clone, card);
+  });
 
-      // kalau yang diklik lagi, tutup
-      if (isActive) {
-        card.classList.remove('active');
-      } else {
-        // kalau klik kartu lain, buka yang baru dan tutup lainnya
-        newCards.forEach(c => c.classList.remove('active'));
-        card.classList.add('active');
+  const updatedCards = document.querySelectorAll('.hashtag-card');
+
+  if (window.innerWidth <= 768) {
+    updatedCards.forEach(card => {
+      card.addEventListener('click', e => {
+        e.stopPropagation();
+        const isActive = card.classList.contains('active');
+
+        // Kalau yang diklik lagi → tutup
+        if (isActive) {
+          card.classList.remove('active');
+        } else {
+          // Tutup yang lain dulu
+          updatedCards.forEach(c => c.classList.remove('active'));
+          card.classList.add('active');
+        }
+      });
+    });
+
+    // Klik di luar → tutup semua
+    document.addEventListener('click', e => {
+      if (!e.target.closest('.hashtag-card')) {
+        updatedCards.forEach(c => c.classList.remove('active'));
       }
     });
-  });
-
-  // klik luar area hashtag → nutup semua
-  document.addEventListener('click', e => {
-    if (!e.target.closest('.hashtag-card')) {
-      newCards.forEach(c => c.classList.remove('active'));
-    }
-  });
+  }
 }
 
-  enableMobileClick();
-  window.addEventListener('resize', enableMobileClick);
+enableMobileClick();
+window.addEventListener('resize', enableMobileClick);
 </script>
 </body>
 </html>
