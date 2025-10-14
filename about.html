@@ -561,25 +561,26 @@
   box-shadow: 0 0 8px rgba(0,0,0,0.15);
 }
 
-/* Panah penunjuk (default desktop) */
+/* 🎯 PANAH PUTIH — SELALU ARAH KE RODA */
 .arrow {
   position: absolute;
-  right: -22px;
+  right: -14px; /* pas di tepi roda */
   top: 50%;
-  transform: translateY(-50%);
+  transform: translateY(-50%) rotate(180deg); /* arahkan ke roda */
   width: 0;
   height: 0;
-  border-top: 15px solid transparent;
-  border-bottom: 15px solid transparent;
-  border-left: 25px solid #fff;
-  filter: drop-shadow(0 0 3px rgba(0,0,0,0.3));
+  border-top: 14px solid transparent;
+  border-bottom: 14px solid transparent;
+  border-right: 22px solid #fff; /* lancip ke arah roda */
+  filter: drop-shadow(0 0 3px rgba(0,0,0,0.25));
+  z-index: 5;
 }
 
 /* Titik tengah roda */
 .wheel-center {
   position: absolute;
-  width: 60px;
-  height: 60px;
+  width: 50px;
+  height: 50px;
   background: #fff;
   border-radius: 50%;
   top: 50%;
@@ -611,7 +612,7 @@
   line-height: 1.6;
 }
 
-/* RESPONSIF */
+/* 📱 RESPONSIF UNTUK MOBILE */
 @media (max-width: 768px) {
   .timeline-wrapper {
     flex-direction: column;
@@ -632,32 +633,15 @@
     height: 230px;
   }
 
-  /* 🔽 Panah putih dibalik — sekarang lancipnya ke arah roda */
-/* 🎯 PANAH PUTIH — ARAH KE RODA */
-.arrow {
-  position: absolute;
-  right: -14px; /* lebih masuk sedikit biar nempel pas di roda */
-  top: 50%;
-  transform: translateY(-50%) rotate(180deg); /* dibalik arah ke roda */
-  width: 0;
-  height: 0;
-  border-top: 14px solid transparent;
-  border-bottom: 14px solid transparent;
-  border-right: 22px solid #fff; /* lancip ke arah roda */
-  filter: drop-shadow(0 0 3px rgba(0,0,0,0.25));
-  z-index: 5;
-}
-
-/* 📱 Responsif di layar kecil */
-@media (max-width: 768px) {
+  /* 🔽 Panah putih versi mobile — tetap arah ke roda */
   .arrow {
     right: -10px; /* agak mendekat ke roda */
     border-top: 12px solid transparent;
     border-bottom: 12px solid transparent;
     border-right: 18px solid #fff;
-    transform: translateY(-50%) rotate(180deg); /* tetap arah ke roda */
+    transform: translateY(-50%) rotate(180deg);
+    border-left: none !important; /* pastikan panah lama dihapus */
   }
-}
 
   .wheel-center {
     width: 45px;
@@ -666,9 +650,9 @@
 
   /* 🗨️ Pesan di tengah tapi ada jarak aman dari pinggir */
   .event-info {
-    text-align: left;       /* dari center → biar rapi kiri */
+    text-align: left;
     padding: 20px;
-    margin: 0 20px;         /* kasih jarak kanan kiri */
+    margin: 0 20px;
     border-radius: 16px;
   }
 
