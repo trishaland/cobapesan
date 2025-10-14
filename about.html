@@ -561,7 +561,7 @@
   box-shadow: 0 0 8px rgba(0,0,0,0.15);
 }
 
-/* Panah penunjuk */
+/* Panah penunjuk (default desktop) */
 .arrow {
   position: absolute;
   right: -22px;
@@ -633,18 +633,19 @@
   }
 
   /* 🔽 Panah putih dibalik — sekarang lancipnya ke arah roda */
-.arrow {
-  position: absolute;
-  right: -22px; /* tetap di kanan */
-  top: 50%;
-  transform: translateY(-50%) rotate(180deg); /* dibalik arahnya */
-  width: 0;
-  height: 0;
-  border-top: 15px solid transparent;
-  border-bottom: 15px solid transparent;
-  border-right: 25px solid #fff; /* ubah dari border-left jadi border-right */
-  filter: drop-shadow(0 0 3px rgba(0,0,0,0.3));
-}
+  .arrow {
+    position: absolute;
+    right: -22px; /* tetap di kanan */
+    top: 50%;
+    transform: translateY(-50%) rotate(180deg); /* dibalik arahnya */
+    width: 0;
+    height: 0;
+    border-top: 15px solid transparent;
+    border-bottom: 15px solid transparent;
+    border-right: 25px solid #fff; /* ubah dari border-left jadi border-right */
+    border-left: none !important;  /* ✨ hapus panah lama biar gak double */
+    filter: drop-shadow(0 0 3px rgba(0,0,0,0.3));
+  }
 
   .wheel-center {
     width: 45px;
