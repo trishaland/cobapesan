@@ -378,11 +378,13 @@
   flex: 0 0 auto;
   scroll-snap-align: center;
   width: 260px;
-  height: 360px;
+  aspect-ratio: 3 / 4;       /* ✅ biar proporsional di semua device */
   perspective: 1000px;
   cursor: grab;
   border-radius: 20px;
+  position: relative;
 }
+
 .flip-card:active { cursor: grabbing; }
 
 .flip-card-inner {
@@ -491,14 +493,26 @@
   transform: rotateY(180deg);
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  justify-content: flex-start;   /* 🔁 biar teks mulai dari atas */
+  align-items: flex-start;
   padding: 20px 18px;
   font-size: 0.95rem;
   text-align: left;
   line-height: 1.6;
   border-radius: 20px;
-  white-space: pre-line; /* biar line break di HTML kebaca */
+  white-space: normal;           /* 🧩 biar teks wrap otomatis */
+  overflow-y: auto;              /* ✅ kalau teks panjang bisa discroll */
+  max-height: 100%;              /* biar ga keluar dari kartu */
+  box-sizing: border-box;
+  scrollbar-width: thin;         /* untuk Firefox */
+}
+
+.flip-card-back::-webkit-scrollbar {
+  width: 6px;
+}
+.flip-card-back::-webkit-scrollbar-thumb {
+  background: rgba(0,0,0,0.15);
+  border-radius: 3px;
 }
 
 .flip-card-back strong {
@@ -521,6 +535,19 @@
 .flip-card-back ul li::before {
   content: "🎵 ";
   font-size: 0.9rem;
+}
+
+@media (max-width: 900px) {
+  .flip-card {
+    width: 90%;
+    max-width: 360px;
+    aspect-ratio: 3 / 4;
+  }
+
+  .flip-card-back {
+    font-size: 0.85rem;
+    padding: 16px;
+  }
 }
 
 /* 🎡 TIMELINE TRISHA */
