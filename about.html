@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -670,16 +671,12 @@
   background: #eaf4ff;
   scrollbar-width: none;
   -ms-overflow-style: none;
-  cursor: grab;
   scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch; /* biar scroll di HP super halus */
 }
 
 .timeline-horizontal::-webkit-scrollbar {
   display: none;
-}
-
-.timeline-horizontal:active {
-  cursor: grabbing;
 }
 
 .timeline-scroll {
@@ -689,9 +686,14 @@
   gap: 60px;
   padding: 0 8%;
   position: relative;
+
+  /* 🌈 Scroll Snap = berhenti pas di tengah event */
+  scroll-snap-type: x mandatory;
 }
 
 .timeline-event {
+  scroll-snap-align: center;
+  flex-shrink: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -2022,37 +2024,47 @@ document.addEventListener("DOMContentLoaded", () => {
 
 <script>
 const timeline = document.querySelector('.timeline-horizontal');
-let isDown = false;
-let startX;
-let scrollLeft;
 
-timeline.addEventListener('mousedown', (e) => {
-  isDown = true;
-  startX = e.pageX - timeline.offsetLeft;
-  scrollLeft = timeline.scrollLeft;
-});
-timeline.addEventListener('mouseleave', () => isDown = false);
-timeline.addEventListener('mouseup', () => isDown = false);
-timeline.addEventListener('mousemove', (e) => {
-  if(!isDown) return;
-  e.preventDefault();
-  const x = e.pageX - timeline.offsetLeft;
-  const walk = (x - startX) * 1;
-  timeline.scrollLeft = scrollLeft - walk;
-});
+// 🖱️ Drag hanya di desktop (biar gak bentrok dengan swipe HP)
+if (!('ontouchstart' in window)) {
+  let isDown = false;
+  let startX;
+  let scrollLeft;
 
-/* 🖐️ support touch drag di HP */
-let touchStartX = 0;
-let touchScrollLeft = 0;
+  timeline.addEventListener('mousedown', (e) => {
+    isDown = true;
+    timeline.style.cursor = 'grabbing';
+    startX = e.pageX - timeline.offsetLeft;
+    scrollLeft = timeline.scrollLeft;
+  });
 
-timeline.addEventListener('touchstart', (e) => {
-  touchStartX = e.touches[0].pageX - timeline.offsetLeft;
-  touchScrollLeft = timeline.scrollLeft;
-});
-timeline.addEventListener('touchmove', (e) => {
-  const x = e.touches[0].pageX - timeline.offsetLeft;
-  const walk = (x - touchStartX) * 1;
-  timeline.scrollLeft = touchScrollLeft - walk;
+  timeline.addEventListener('mouseleave', () => {
+    isDown = false;
+    timeline.style.cursor = 'grab';
+  });
+
+  timeline.addEventListener('mouseup', () => {
+    isDown = false;
+    timeline.style.cursor = 'grab';
+  });
+
+  timeline.addEventListener('mousemove', (e) => {
+    if (!isDown) return;
+    e.preventDefault();
+    const x = e.pageX - timeline.offsetLeft;
+    const walk = (x - startX) * 1;
+    timeline.scrollLeft = scrollLeft - walk;
+  });
+}
+
+// ⚡ Bonus: Smooth inertia scroll di semua device
+let isScrolling;
+timeline.addEventListener('scroll', () => {
+  timeline.classList.add('scrolling');
+  clearTimeout(isScrolling);
+  isScrolling = setTimeout(() => {
+    timeline.classList.remove('scrolling');
+  }, 100);
 });
 </script>
 </body>
