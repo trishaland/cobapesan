@@ -662,6 +662,91 @@
   }
 }
 
+/* 🔵 Garis Timeline Horizontal di bawah wheel */
+.timeline-horizontal {
+  width: 100%;
+  overflow-x: auto;
+  padding: 30px 0;
+  background: #eaf4ff;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  cursor: grab;
+  scroll-behavior: smooth;
+}
+
+.timeline-horizontal::-webkit-scrollbar {
+  display: none;
+}
+
+.timeline-horizontal:active {
+  cursor: grabbing;
+}
+
+.timeline-scroll {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 60px;
+  padding: 0 8%;
+  position: relative;
+}
+
+.timeline-event {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.timeline-event:hover {
+  transform: translateY(-8px);
+}
+
+.timeline-event img {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border: 3px solid #1a5cff;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  margin-bottom: 10px;
+}
+
+.timeline-event p {
+  font-size: 0.9rem;
+  color: #003366;
+  font-weight: 600;
+  text-align: center;
+  width: 100px;
+}
+
+/* 📱 Responsif */
+@media (max-width: 768px) {
+  .timeline-scroll {
+    gap: 35px;
+    padding: 0 20px;
+  }
+  .timeline-event img {
+    width: 60px;
+    height: 60px;
+  }
+  .timeline-event p {
+    font-size: 0.75rem;
+    width: 80px;
+  }
+}
+
+.timeline-event.active img {
+  border-color: #ff85a1;
+  box-shadow: 0 0 12px rgba(255,133,161,0.6);
+  transform: scale(1.1);
+}
+.timeline-event.active p {
+  color: #ff85a1;
+}
+
 /* 🎠 TRISHA ACTIVITIES SECTION */
 .trisha-activities {
   background: #f6f8ff;
@@ -1275,24 +1360,54 @@
         </section>
       </div>
 
-      <!-- 🕒 TIMELINE -->
-      <div id="timeline" class="content-section">
-        <section class="timeline-trisha">
-          <h2>Timeline Trisha</h2>
-          <div class="timeline-wrapper">
-            <div class="wheel-wrapper">
-              <div class="arrow"></div>
-              <canvas id="wheelCanvas" width="500" height="500"></canvas>
-              <div class="wheel-center"></div>
-            </div>
-            <div class="event-info">
-              <h3 id="event-title">Debut Trainee</h3>
-              <p id="event-desc">Trisha tampil pertama kali sebagai trainee generasi 12 di JKT48 Academy! 💫</p>
-              <img id="event-img" src="debut.jpg" alt="Event Image" style="width:100%;border-radius:12px;margin-top:12px;">
-            </div>
-          </div>
-        </section>
+ <!-- 🕒 TIMELINE -->
+<div id="timeline" class="content-section">
+  <section class="timeline-trisha">
+    <h2>Timeline Trisha</h2>
+
+    <!-- 🎡 BAGIAN ATAS: SPIN WHEEL + INFO -->
+    <div class="timeline-wrapper">
+      <div class="wheel-wrapper">
+        <div class="arrow"></div>
+        <canvas id="wheelCanvas" width="500" height="500"></canvas>
+        <div class="wheel-center"></div>
       </div>
+
+      <div class="event-info">
+        <h3 id="event-title">Debut Trainee</h3>
+        <p id="event-desc">
+          Trisha tampil pertama kali sebagai trainee generasi 12 di JKT48 Academy! 💫
+        </p>
+        <img 
+          id="event-img" 
+          src="debut.jpg" 
+          alt="Event Image" 
+          style="width: 100%; border-radius: 12px; margin-top: 12px;"
+        >
+      </div>
+    </div>
+
+    <!-- 📜 BAGIAN BAWAH: TIMELINE HORIZONTAL -->
+    <div class="timeline-horizontal">
+      <div class="timeline-scroll">
+        <div class="timeline-event"><img src="tlgen12.jpg" alt=""><p>Gen12 Announcement</p></div>
+        <div class="timeline-event"><img src="tlanniv12.jpg" alt=""><p>Concert Anniv 12th</p></div>
+        <div class="timeline-event"><img src="tlshonichiteater.jpg" alt=""><p>Shonichi Theater</p></div>
+        <div class="timeline-event"><img src="tlshonichioffair.jpg" alt=""><p>Shonichi Off Air</p></div>
+        <div class="timeline-event"><img src="tlfirstmng.jpg" alt=""><p>First MNG</p></div>
+        <div class="timeline-event"><img src="tlshonichipajama.jpg" alt=""><p>Shonichi Pajama</p></div>
+        <div class="timeline-event"><img src="tlfirstmv.jpg" alt=""><p>First MV</p></div>
+        <div class="timeline-event"><img src="tlsecondmng.jpg" alt=""><p>Second MNG</p></div>
+        <div class="timeline-event"><img src="tlfirstofc.jpg" alt=""><p>First OFC Event</p></div>
+        <div class="timeline-event"><img src="tlthirdmng.jpg" alt=""><p>Third MNG</p></div>
+        <div class="timeline-event"><img src="tlsecondbd.jpg" alt=""><p>Second Birthday</p></div>
+        <div class="timeline-event"><img src="tlcenterpajama.jpg" alt=""><p>Center Pajama</p></div>
+        <div class="timeline-event"><img src="tlcenteraitakatta.jpg" alt=""><p>Center Aitakatta</p></div>
+        <div class="timeline-event"><img src="tlshonichiramune.jpg" alt=""><p>Shonichi Ramune</p></div>
+      </div>
+    </div>
+  </section>
+</div>
 
       <!-- #️⃣ HASHTAG -->
       <div id="hashtag" class="content-section">
@@ -1419,6 +1534,9 @@
           <li>#WannaSeeTrisha</li>
           <li>#Trishaur</li>
           <li>#Trishelca</li>
+          <li>#CallTrisha</li>
+          <li>#RuangBermain</li>
+          <li>#Inshastory</li>
         </ul>
       </div>
     </div>
@@ -1862,6 +1980,80 @@ function enableMobileClick() {
 
 enableMobileClick();
 window.addEventListener('resize', enableMobileClick);
+</script>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  // Ambil data event yang sama seperti di spinwheel
+  const events = [
+    {title: "Gen12 Announcement", desc: "<b>18 November 2023</b> - Trisha pertama kali diperkenalkan di Event Jak Japan Matsuri 2023! 💫", img: "tlgen12.jpg"},
+    {title: "Concert Anniv 12th", desc: "<b>17 Desember 2023</b> - Trisha tampil dalam konser ulang tahun JKT48 ke-12! 🎉", img: "tlanniv12.jpg"},
+    {title: "Shonichi Theater", desc: "<b>16 Februari 2024</b> - Trisha tampil pertama kali di teater JKT48 sekaligus merayakan Ulang Tahun ke-13 Trisha! 🌟", img: "tlshonichiteater.jpg"},
+    {title: "Shonichi Off air", desc: "<b>4 Mei 2024</b> - Penampilan off air pertama Trisha di Event Panggung Panas Pekanbaru. 🎤", img: "tlshonichioffair.jpg"},
+    {title: "First MNG", desc: "<b>11 Mei 2024</b> - Meet and Greet pertama Trisha dengan fans di Event Spring Has Come! 💬", img: "tlfirstmng.jpg"},
+    {title: "Shonichi Pajama", desc: "<b>30 Mei 2024</b> - Debut Trisha dalam setlist Pajama Drive. 💃", img: "tlshonichipajama.jpg"},
+    {title: "First MV", desc: "<b>20 Agustus 2024</b> - Trisha tampil di MV pertamanya bersama JKT48! 🎬", img: "tlfirstmv.jpg"},
+    {title: "Second MNG", desc: "<b>28 September 2024</b> - Meet and Greet kedua Trisha dengan suasana hangat. 💖", img: "tlsecondmng.jpg"},
+    {title: "First OFC Event", desc: "<b>30 September 2024</b> - Trisha hadir di event OFC pertamanya! 💫", img: "tlfirstofc.jpg"},
+    {title: "Third MNG", desc: "<b>8 Februari 2025</b> - Trisha kembali menyapa fans di MNG ketiga! 😊", img: "tlthirdmng.jpg"},
+    {title: "Second Birthday", desc: "<b>23 Februari 2025</b> - Show ulang tahun ke-2 Trisha yang penuh kejutan! 🎂", img: "tlsecondbd.jpg"},
+    {title: "Center Pajama", desc: "<b>3 Mei 2025</b> - Trisha tampil sebagai Global Center di Pajama Drive! 🌟", img: "tlcenterpajama.jpg"},
+    {title: "Center Aitakatta", desc: "<b>10 Mei 2025</b> - Trisha jadi Global center untuk Aitakatta! 💥", img: "tlcenteraitakatta.jpg"},
+    {title: "Shonichi Ramune", desc: "<b>17 Juli 2025</b> - Trisha tampil perdana di setlist Cara Meminum Ramune 😊", img: "tlshonichiramune.jpg"}
+  ];
+
+  // Ambil semua elemen event di garis bawah
+  const timelineEvents = document.querySelectorAll(".timeline-event");
+
+  timelineEvents.forEach((el, i) => {
+    el.addEventListener("click", () => {
+      const ev = events[i];
+      document.getElementById("event-title").textContent = ev.title;
+      document.getElementById("event-desc").innerHTML = ev.desc;
+      document.getElementById("event-img").src = ev.img;
+
+      // Tambah efek aktif visual
+      timelineEvents.forEach(e => e.classList.remove("active"));
+      el.classList.add("active");
+    });
+  });
+});
+</script>
+
+<script>
+const timeline = document.querySelector('.timeline-horizontal');
+let isDown = false;
+let startX;
+let scrollLeft;
+
+timeline.addEventListener('mousedown', (e) => {
+  isDown = true;
+  startX = e.pageX - timeline.offsetLeft;
+  scrollLeft = timeline.scrollLeft;
+});
+timeline.addEventListener('mouseleave', () => isDown = false);
+timeline.addEventListener('mouseup', () => isDown = false);
+timeline.addEventListener('mousemove', (e) => {
+  if(!isDown) return;
+  e.preventDefault();
+  const x = e.pageX - timeline.offsetLeft;
+  const walk = (x - startX) * 1;
+  timeline.scrollLeft = scrollLeft - walk;
+});
+
+/* 🖐️ support touch drag di HP */
+let touchStartX = 0;
+let touchScrollLeft = 0;
+
+timeline.addEventListener('touchstart', (e) => {
+  touchStartX = e.touches[0].pageX - timeline.offsetLeft;
+  touchScrollLeft = timeline.scrollLeft;
+});
+timeline.addEventListener('touchmove', (e) => {
+  const x = e.touches[0].pageX - timeline.offsetLeft;
+  const walk = (x - touchStartX) * 1;
+  timeline.scrollLeft = touchScrollLeft - walk;
+});
 </script>
 </body>
 </html>
