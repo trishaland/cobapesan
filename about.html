@@ -1890,13 +1890,67 @@ const events = [
   {title: "Shonichi Ramune", desc: "<b>17 Juli 2025</b> - Trisha tampil perdana di setlist Cara Meminum Ramune #TrishaYatraKatha😊", img: "tlshonichiramune.jpg"}
 ];
 
+/* 🎯 Update event aktif + Hubungkan Wheel ↔ Timeline */
+const timelineEvents = document.querySelectorAll(".timeline-event");
+const sliceAngle = 360 / slices.length;
+
+/* 🔁 Saat WHEEL berhenti → aktifkan timeline bawah */
 function updateActiveEvent() {
   const normalized = ((rotation % 360) + 360) % 360;
-  const index = Math.floor(((360 - normalized) % 360) / (360 / slices.length));
+  const index = Math.floor(((360 - normalized) % 360) / sliceAngle);
   const event = events[index];
+
+  // update info kanan
   document.getElementById('event-title').textContent = event.title;
   document.getElementById('event-desc').innerHTML = event.desc; // pakai innerHTML biar bold jalan
   document.getElementById('event-img').src = event.img;
+
+  // aktifkan event bawah
+  timelineEvents.forEach((el, i) => {
+    el.classList.toggle("active", i === index);
+  });
+
+  // ✅ Scroll horizontal aja (biar gak loncat ke bawah)
+  const activeEl = timelineEvents[index];
+  const container = document.querySelector(".timeline-horizontal");
+  const elLeft = activeEl.offsetLeft - container.offsetLeft;
+  const elCenter = elLeft - container.clientWidth / 2 + activeEl.clientWidth / 2;
+  container.scrollTo({ left: elCenter, behavior: "smooth" });
+}
+
+/* 🖱️ Saat TIMELINE diklik → putar roda ke event itu */
+timelineEvents.forEach((el, i) => {
+  el.addEventListener("click", () => {
+    spinToIndex(i);
+  });
+});
+
+/* 🎡 Fungsi muter ke posisi index tertentu (biar sinkron ke event bawah) */
+function spinToIndex(i) {
+  if (animating) return;
+  animating = true;
+
+  // hitung posisi target biar segmen itu pas di atas
+  const targetAngle = 360 - (i * sliceAngle + sliceAngle / 2);
+  const diff = ((targetAngle - rotation + 540) % 360) - 180; // biar muter ke arah terdekat
+  const frames = 60;
+  let frame = 0;
+
+  function animateToTarget() {
+    if (frame >= frames) {
+      rotation = targetAngle;
+      drawWheel();
+      animating = false;
+      updateActiveEvent();
+      return;
+    }
+    rotation += diff / frames;
+    drawWheel();
+    frame++;
+    requestAnimationFrame(animateToTarget);
+  }
+
+  animateToTarget();
 }
 </script>
 
